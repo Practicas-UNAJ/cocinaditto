@@ -9,3 +9,66 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id
+  username  String
+  thumbnail String   @default("")
+  createdOn DateTime @default(now())
+
+  recipes      Recipe[]
+  savedRecipes SavedRecipe[]
+  likes        Like[]
+
+  followers Follows[] @relation("following")
+  following Follows[] @relation("follower")
+}
+
+model Follows {
+  follower    User   @relation("follower", onDelete: Cascade, fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", onDelete: Cascade, fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
+}
+
+model Recipe {
+  id           String   @id @default(uuid())
+  userId       String
+  title        String
+  thumbnail    String
+  country      String
+  content      String
+  portions     Int
+  cooking_time Int
+  isVegan      Boolean
+  glutenFree   Boolean
+  createdOn    DateTime @default(now())
+
+  author       User          @relation(fields: [userId], onDelete: Cascade, references: [id])
+  savedRecipes SavedRecipe[]
+  likes        Like[]
+}
+
+model SavedRecipe {
+  userId   String
+  recipeId String
+
+  user   User   @relation(fields: [userId], onDelete: Cascade, references: [id])
+  recipe Recipe @relation(fields: [recipeId], onDelete: Cascade, references: [id])
+
+  @@unique([userId, recipeId])
+  @@map("saved_recipe")
+}
+
+model Like {
+  userId    String
+  recipeId  String
+  createdOn DateTime @default(now())
+
+  user   User   @relation(fields: [userId], onDelete: Cascade, references: [id])
+  recipe Recipe @relation(fields: [recipeId], onDelete: Cascade, references: [id])
+
+  @@unique([userId, recipeId])
+}

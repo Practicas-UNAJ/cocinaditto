@@ -39,3 +39,7 @@ next-env.d.ts
 # prisma migrations
 modules/prisma/migrations/*/
 
+# firebase admin service account
+
+modules/firebase/serviceAccount.json
+

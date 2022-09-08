@@ -1,9 +1,30 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import { ReactElement } from "react";
+import { MainLayout } from "../layouts/MainLayout";
+import type { NextPageWithLayout } from "./_app";
+import { Searchbar } from "../components/Searchbar";
+import { FeaturedRecipes } from "../components/FeaturedRecipes";
+import { RandomRecipe } from "../components/RandomRecipe";
+import { LastRecipes } from "../components/LastRecipes";
+import { NewRecipe } from "../components/NewRecipe";
 
-const Home: NextPage = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-};
+const Page: NextPageWithLayout = () => {
+  return (
+    <>
+      <Searchbar/>
+      <FeaturedRecipes/>
+      <RandomRecipe/>
+      <LastRecipes/>
+      <NewRecipe/>
+    </>
+  )
+}
 
-export default Home;
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <MainLayout>
+      {page}
+    </MainLayout>
+  )
+}
+
+export default Page;

@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@apollo/client": "^3.6.9",
         "@iconify/react": "^3.2.2",
         "@prisma/client": "^4.2.1",
         "apollo-server-core": "^3.10.2",

@@ -1,16 +1,43 @@
-import { NextComponentType } from "next"
-import { RecipeCard } from "./RecipeCard"
-import { HIGHLIGHTED } from "./RecipeCard"
+import { useQuery } from "@apollo/client";
+import { NextComponentType } from "next";
+import { TrendingRecipesQuery } from "../../apollo/queries";
+import { TrendingRecipesData, TrendingRecipesVars } from "../../apollo/types";
+import { Recipe } from "../../modules/graphql/types/interfaces";
+import { RecipeCard } from "./RecipeCard";
+import { HIGHLIGHTED } from "./RecipeCard";
+
+const numToHighlighted = (n: number) => {
+  if (n === 0) return HIGHLIGHTED.FIRST;
+  if (n === 1) return HIGHLIGHTED.SECOND;
+  if (n === 2) return HIGHLIGHTED.THIRD;
+  return HIGHLIGHTED.NONE;
+};
 
 export const FeaturedRecipes: NextComponentType = () => {
-    return (
-        <div>
-            <h2 className="mb-3"><span className="text-xl font-semibold">Recetas Destacadas </span><span className="text-sm">(Última semana)</span></h2>
-            <div className="flex flex-row gap-3 justify-center">
-                <RecipeCard id={1}  highlighted={HIGHLIGHTED.FIRST} image="https://picsum.photos/900?random=1" title="Nombre de Receta" cookingTime="30" vegan={true} portions="5" glutenFree={false} likes="100" author="nombre autor"/>
-                <RecipeCard id={1}  highlighted={HIGHLIGHTED.SECOND} image="https://picsum.photos/900?random=2" title="Nombre de Receta" cookingTime="30" vegan={false} portions="5" glutenFree={true} likes="100" author="nombre autor"/>
-                <RecipeCard id={1}  highlighted={HIGHLIGHTED.THIRD} image="https://picsum.photos/900?random=3" title="Nombre de Receta" cookingTime="30" vegan={true} portions="5" glutenFree={false} likes="100" author="nombre autor"/>
-            </div>
-        </div>
-   )
-}
+  const { data, loading, error } = useQuery<
+    TrendingRecipesData,
+    TrendingRecipesVars
+  >(TrendingRecipesQuery, {
+    variables: { time: "LAST_WEEK", pagination: { offset: 0, take: 3 } },
+  });
+
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>{JSON.stringify(error)}</p>;
+
+  return data ? (
+    <div>
+      <h2 className="mb-3">
+        <span className="text-xl font-semibold">Recetas Destacadas </span>
+        <span className="text-sm">(Última semana)</span>
+      </h2>
+      <div className="flex flex-row gap-3 justify-center">
+        {data.trending.map((recipe: Recipe, key: number) => (
+          <RecipeCard {...recipe} highlighted={numToHighlighted(key)} />
+        ))}
+      </div>
+    </div>
+  ) : (
+    <></>
+  );
+};

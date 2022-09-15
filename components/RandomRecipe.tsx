@@ -4,7 +4,7 @@ import Ditto from "../assets/images/ditto-duda.png"
 
 export const RandomRecipe: NextComponentType = () => {
     return (
-        <div className="flex flex-row gap-3">
+        <div className="flex flex-row gap-3 self-center">
             <div className="w-40 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 <Image src={Ditto} objectFit="cover" layout="responsive" />
             </div>

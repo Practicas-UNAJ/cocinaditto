@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const NewRecipe: NextComponentType = () => {
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center self-center">
             <div className="text-center text-2xl">¡Publica una receta!</div>
             <div className="w-40 relative">
                 <Image src={Ditto} objectFit="cover" layout="responsive" />

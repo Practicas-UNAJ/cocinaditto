@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../components/layouts/MainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { Searchbar } from "../components/Searchbar";
-import { FeaturedRecipes } from "../components/FeaturedRecipes";
+import { FeaturedRecipes } from "../components/recipes/FeaturedRecipes";
 import { RandomRecipe } from "../components/RandomRecipe";
-import { LastRecipes } from "../components/LastRecipes";
+import { LastRecipes } from "../components/recipes/LastRecipes";
 import { NewRecipe } from "../components/NewRecipe";
 
 const Page: NextPageWithLayout = () => {

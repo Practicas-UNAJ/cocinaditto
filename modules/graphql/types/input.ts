@@ -18,8 +18,8 @@ export interface LoginMutationInput {
 
 export interface RecipesQueryInput {
   query: {
-    values: RecipeQueryFields;
-    sort: RecipeSorting;
-    pagination: Pagination;
+    values?: RecipeQueryFields;
+    sort?: RecipeSorting;
+    pagination?: Pagination;
   };
 }

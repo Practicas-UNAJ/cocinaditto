@@ -11,6 +11,7 @@ import {
 } from "@apollo/client";
 import app from "../libs/firebaseApp";
 import { setContext } from "@apollo/client/link/context";
+import ModalProvider from "../context/ModalProvider";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -48,7 +49,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ApolloProvider client={client}>
-      {getLayout(<Component {...pageProps} />)}
+      <ModalProvider>
+      {getLayout(
+          <Component {...pageProps} />
+      )}
+      </ModalProvider>
     </ApolloProvider>
   );
 }

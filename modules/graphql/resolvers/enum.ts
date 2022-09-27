@@ -1,5 +1,9 @@
 import { TrendingTime } from "../types/class";
-import { RecipeSortBy, SortDirections } from "../types/enum";
+import {
+  RecipeMutationType,
+  RecipeSortBy,
+  SortDirections,
+} from "../types/enum";
 
 const Enum = {
   SortDirections: {
@@ -18,6 +22,11 @@ const Enum = {
     LAST_WEEK: TrendingTime.LAST_WEEK,
     LAST_MONTH: TrendingTime.LAST_MONTH,
     LAST_YEAR: TrendingTime.LAST_YEAR,
+  },
+  RecipeMutationType: {
+    CREATE: RecipeMutationType.CREATE,
+    EDIT: RecipeMutationType.EDIT,
+    DELETE: RecipeMutationType.DELETE,
   },
 };
 

@@ -10,3 +10,9 @@ export enum RecipeSortBy {
   TITLE = "title",
   CREATED_ON = "createdOn",
 }
+
+export enum RecipeMutationType {
+  CREATE = "CREATE",
+  EDIT = "EDIT",
+  DELETE = "DELETE",
+}

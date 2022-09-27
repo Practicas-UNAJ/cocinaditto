@@ -3,6 +3,8 @@ import { gql } from "apollo-server-core";
 const schema = gql`
   scalar DateTime
 
+  union RecipeMutationResult = CreateResult | EditResult | DeleteResult
+
   type Query {
     recipes(query: RecipesQueryInput!): [Recipe]
     trending(time: TrendingTime!, pagination: Pagination): [Recipe]
@@ -11,6 +13,10 @@ const schema = gql`
   type Mutation {
     register(credentials: RegisterMutationInput!): String
     login(credentials: LoginMutationInput!): String
+    recipe(
+      type: RecipeMutationType!
+      payload: RecipeMutationInput!
+    ): RecipeMutationResult
   }
 
   type User {
@@ -77,6 +83,36 @@ const schema = gql`
     values: RecipeQueryFields
     sort: RecipeSorting
     pagination: Pagination
+  }
+
+  input RecipeMutationInput {
+    id: ID
+    title: String
+    thumbnail: String
+    country: String
+    content: String
+    portions: Int
+    cooking_time: Int
+    isVegan: Boolean
+    glutenFree: Boolean
+  }
+
+  type CreateResult {
+    created: String
+  }
+
+  type EditResult {
+    edited: Boolean
+  }
+
+  type DeleteResult {
+    deleted: Boolean
+  }
+
+  enum RecipeMutationType {
+    CREATE
+    EDIT
+    DELETE
   }
 
   enum SortDirections {

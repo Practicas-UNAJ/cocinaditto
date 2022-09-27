@@ -7,6 +7,7 @@ import Query from "../modules/graphql/resolvers/query";
 import Field from "../modules/graphql/resolvers/field";
 import Enum from "../modules/graphql/resolvers/enum";
 import { DateTimeResolver } from "graphql-scalars";
+import Union from "../modules/graphql/resolvers/union";
 
 const apollo = new ApolloServer({
   typeDefs,
@@ -14,6 +15,7 @@ const apollo = new ApolloServer({
     DateTime: DateTimeResolver,
     ...Enum,
     ...Field,
+    ...Union,
     Query,
     Mutation,
   },

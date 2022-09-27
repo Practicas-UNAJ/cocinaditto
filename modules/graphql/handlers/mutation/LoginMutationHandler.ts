@@ -4,7 +4,7 @@ import firebaseApp from "../../../../libs/firebaseApp";
 import ApolloContext from "../../types/context";
 import { LoginMutationInput } from "../../types/input";
 
-export const LoginMutationHandler = async (
+const LoginMutationHandler = async (
   _parent: any,
   { credentials }: LoginMutationInput,
   _: ApolloContext
@@ -21,3 +21,5 @@ export const LoginMutationHandler = async (
 
   return token;
 };
+
+export default LoginMutationHandler;

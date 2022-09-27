@@ -42,8 +42,8 @@ model Recipe {
   content      String
   portions     Int
   cooking_time Int
-  isVegan      Boolean
-  glutenFree   Boolean
+  isVegan      Boolean  @default(false)
+  glutenFree   Boolean  @default(false)
   createdOn    DateTime @default(now())
 
   author       User          @relation(fields: [userId], onDelete: Cascade, references: [id])

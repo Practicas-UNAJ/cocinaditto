@@ -12,6 +12,7 @@ import {
 import app from "../libs/firebaseApp";
 import { setContext } from "@apollo/client/link/context";
 import ModalProvider from "../context/ModalProvider";
+import Head from "next/head";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -48,12 +49,19 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
+    <>
+    <Head>
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    </Head>
     <ApolloProvider client={client}>
       <ModalProvider>
       {getLayout(
-          <Component {...pageProps} />
-      )}
+        <Component {...pageProps} />
+        )}
       </ModalProvider>
     </ApolloProvider>
+    </>
   );
 }

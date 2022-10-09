@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { StaticImageData } from "next/image";
 import { FunctionComponent, useState } from "react";
 import { Icon } from "@iconify/react";
 import insignia1 from "../../assets/images/insignia1.png";

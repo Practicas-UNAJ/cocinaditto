@@ -1,5 +1,6 @@
 import { PrismaClient, Recipe, User } from "@prisma/client";
 import { GraphQLError } from "graphql";
+import { deleteRecipe } from "../../../../joi/schemas/recipe";
 import { DeleteResult, MutationHandlerFunc } from "../../../types/handlers";
 
 const DeleteRecipe: MutationHandlerFunc<Recipe, DeleteResult> = async (
@@ -8,6 +9,10 @@ const DeleteRecipe: MutationHandlerFunc<Recipe, DeleteResult> = async (
   user: User
 ) => {
   try {
+    await deleteRecipe.validateAsync(payload, {
+      abortEarly: false,
+    });
+
     const recipe = await prisma.recipe.findUnique({
       where: {
         id: payload.id,

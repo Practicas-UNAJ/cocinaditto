@@ -54,12 +54,10 @@ const RecipesQueryHandler = async (
     },
   });
 
-  const pagination = query.pagination
-    ? {
-        skip: query.pagination.offset ?? undefined,
-        take: query.pagination.take ?? undefined,
-      }
-    : undefined;
+  const pagination = {
+    skip: query.pagination?.offset ?? 0,
+    take: query.pagination?.take ?? 10,
+  };
 
   const recipes: Recipe[] = await ctx.prisma.recipe.findMany({
     where,
@@ -70,7 +68,13 @@ const RecipesQueryHandler = async (
     ...pagination,
   });
 
-  return recipes;
+  const quantity = await ctx.prisma.recipe.count({
+    where,
+  });
+
+  const hasMore = Boolean(quantity - (pagination.skip + recipes.length));
+
+  return { hasMore, recipes };
 };
 
 export default RecipesQueryHandler;

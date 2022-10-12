@@ -36,7 +36,7 @@ export const LastRecipes: NextComponentType = () => {
         className="max-w-[640px]"
         direction="horizontal"
       >
-        {data.recipes.map((recipe: Recipe, key: number) => (
+        {data.results.recipes.map((recipe: Recipe, key: number) => (
           <SwiperSlide key={key} className="w-fit">
             <RecipeCard {...recipe} highlighted={HIGHLIGHTED.NONE} />
           </SwiperSlide>

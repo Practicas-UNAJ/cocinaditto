@@ -6,7 +6,7 @@ const schema = gql`
   union RecipeMutationResult = CreateResult | EditResult | DeleteResult
 
   type Query {
-    recipes(query: RecipesQueryInput!): [Recipe]
+    recipes(query: RecipesQueryInput!): RecipesQueryResult
     trending(time: TrendingTime!, pagination: Pagination): [Recipe]
   }
 
@@ -40,6 +40,11 @@ const schema = gql`
     createdOn: DateTime
     likes: Int
     likedByUser: Boolean
+  }
+
+  type RecipesQueryResult {
+    hasMore: Boolean
+    recipes: [Recipe]
   }
 
   input RegisterMutationInput {

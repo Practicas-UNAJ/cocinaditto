@@ -62,7 +62,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-1 items-center">
           <Icon icon="ant-design:clock-circle-filled" />
-          <span>{cooking_time}\'</span>
+          <span>{cooking_time}&apos;</span>
         </div>
         {isVegan && <Icon icon="iconoir:vegan" />}
       </div>

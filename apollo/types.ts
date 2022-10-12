@@ -16,7 +16,10 @@ export interface TrendingRecipesData {
 }
 
 export interface RecipesData {
-  recipes: Recipe[];
+  results: {
+    hasMore: boolean;
+    recipes: Recipe[];
+  };
 }
 
 export interface RecipesVars {

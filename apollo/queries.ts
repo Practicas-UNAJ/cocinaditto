@@ -25,23 +25,26 @@ export const TrendingRecipesQuery = gql`
 
 export const RecipesQuery = gql`
   query Recipes($query: RecipesQueryInput!) {
-    recipes(query: $query) {
-      id
-      author {
-        username
+    results: recipes(query: $query) {
+      hasMore
+      recipes {
+        id
+        author {
+          username
+          createdOn
+        }
+        title
+        thumbnail
+        country
+        content
+        portions
+        cooking_time
+        isVegan
+        glutenFree
         createdOn
+        likes
+        likedByUser
       }
-      title
-      thumbnail
-      country
-      content
-      portions
-      cooking_time
-      isVegan
-      glutenFree
-      createdOn
-      likes
-      likedByUser
     }
   }
 `;

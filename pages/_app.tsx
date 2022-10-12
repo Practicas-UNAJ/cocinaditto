@@ -24,7 +24,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:3000/api/graphql",
+  uri: "/api/graphql",
 });
 
 const getIdToken = async () => await app.auth.currentUser?.getIdToken();

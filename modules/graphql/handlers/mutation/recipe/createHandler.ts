@@ -3,6 +3,8 @@ import { GraphQLError } from "graphql";
 import formatError from "../../../../../utils/formatError";
 import { createRecipe } from "../../../../joi/schemas/recipe";
 import { CreateResult, MutationHandlerFunc } from "../../../types/handlers";
+import { v4 } from "uuid";
+import uploadImage from "../../../../firebase/uploadImage";
 
 const CreateRecipe: MutationHandlerFunc<Recipe, CreateResult> = async (
   payload: Omit<Recipe, "id">,
@@ -18,6 +20,21 @@ const CreateRecipe: MutationHandlerFunc<Recipe, CreateResult> = async (
       data: {
         ...payload,
         userId: user.id,
+      },
+    });
+
+    const uuid = v4();
+    const result = await uploadImage(
+      payload.thumbnail,
+      `recipes/${recipe.id}/${uuid}.png`
+    );
+
+    await prisma.recipe.update({
+      where: {
+        id: recipe.id,
+      },
+      data: {
+        thumbnail: result.downloadUrl,
       },
     });
 

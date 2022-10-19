@@ -24,16 +24,16 @@ const Page: NextPageWithLayout = () => {
             <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="text" placeholder="Nombre"/>
             <div className="flex flex-row gap-5 items-center text-card-900">
                 <div className="w-1/3 flex flex-row gap-3 items-center">
-                    <Icon className="w-5" icon="bxs:time-five" />
-                    <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="number" placeholder="Tiempo"/>
+                    <Icon className="min-w-max" icon="bxs:time-five" />
+                    <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="number" placeholder="Tiempo" min={1}/>
                 </div>
                 <div className="w-1/3 flex flex-row gap-3 items-center">
-                    <Icon className="w-5" icon="bx:world" />
+                    <Icon className="min-w-max" icon="bx:world" />
                     <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="text" placeholder="País o región"/>
                 </div>
                 <div className="w-1/3 flex flex-row gap-3 items-center">
-                    <Icon className="w-5" icon="fa6-solid:pizza-slice" />
-                    <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="number" placeholder="Porciones"/>
+                    <Icon className="min-w-max" icon="fa6-solid:pizza-slice" />
+                    <CocinadittoInput className="w-full bg-card-500 placeholder:text-card-700" type="number" placeholder="Porciones" min={1}/>
                 </div>
             </div>
 

@@ -33,7 +33,13 @@ export const FeaturedRecipes: NextComponentType = () => {
       </h2>
       <div className="flex flex-row gap-3 justify-center">
         {data.trending.map((recipe: Recipe, key: number) => (
-          <RecipeCard {...recipe} key={key} highlighted={numToHighlighted(key)} />
+          <div className="w-full">
+            <RecipeCard
+              {...recipe}
+              key={key}
+              highlighted={numToHighlighted(key)}
+            />
+          </div>
         ))}
       </div>
     </div>

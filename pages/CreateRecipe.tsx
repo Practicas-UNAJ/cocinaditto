@@ -7,7 +7,6 @@ import { Icon } from "@iconify/react";
 import { CocinadittoInput } from "../components/Cocinaditto/Input";
 import Head from "next/head";
 import { FlagCheckbutton } from "../components/Cocinaditto/FlagCheckbutton";
-import veganIcon from "../assets/images/vegan.png";
 import glutenFreeIcon from "../assets/images/gluten-free.png";
 import RichTextEditor from "../components/RichTextEditor";
 
@@ -61,11 +60,11 @@ const Page: NextPageWithLayout = () => {
           state={isGlutenFree}
           setState={setIsGlutenFree}
         />
-        <FlagCheckbutton
+        {/*<FlagCheckbutton
           image={veganIcon}
           state={isVegan}
           setState={setIsVegan}
-        />
+        />*/}
       </div>
 
       <RichTextEditor cb={(content: string) => console.log(content)} />

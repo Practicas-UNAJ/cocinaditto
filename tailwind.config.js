@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       colors: {
         primary: {
@@ -65,7 +65,7 @@ module.exports = {
           800: "#931C37",
           900: "#7A1131",
         },
-        card: {
+        brown: {
           100: "#FEFCF8",
           200: "#FDF8F1",
           300: "#FBF3E9",

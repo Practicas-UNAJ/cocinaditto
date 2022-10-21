@@ -42,7 +42,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   return (
     <div
       key={id}
-      className="relative bg-gradient-to-br from-card-500 to-card-600 min-w-[9rem] p-2 rounded-xl text-sm shadow-black/25 shadow-md text-card-800"
+      className="relative gradient min-w-[9rem] p-2 rounded-xl text-sm shadow-black/25 shadow-md "
     >
       <div className="w-5 absolute -translate-x-2/3 -translate-y-2/3">
         {highlighted !== HIGHLIGHTED.NONE && (
@@ -57,7 +57,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
         src={thumbnail}
         className="w-full rounded-t-xl object-cover aspect-[4/3]"
       />
-      <span className="text-black">{title}</span>
+      <span>{title}</span>
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-1 items-center">
           <Icon icon="ant-design:clock-circle-filled" />
@@ -87,7 +87,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
           </button>
           <span>{likes}</span>
         </div>
-        <span className="text-black">{author.username}</span>
+        <span>{author.username}</span>
       </div>
     </div>
   );

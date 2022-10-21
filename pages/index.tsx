@@ -6,25 +6,23 @@ import { FeaturedRecipes } from "../components/recipes/FeaturedRecipes";
 import { RandomRecipe } from "../components/RandomRecipe";
 import { LastRecipes } from "../components/recipes/LastRecipes";
 import { NewRecipe } from "../components/NewRecipe";
+import ExhibitDisclaimer from "../components/ExhibitDisclaimer";
 
 const Page: NextPageWithLayout = () => {
   return (
     <>
-      <Searchbar/>
-      <FeaturedRecipes/>
-      <RandomRecipe/>
-      <LastRecipes/>
-      <NewRecipe/>
+      <Searchbar />
+      <FeaturedRecipes />
+      <RandomRecipe />
+      <LastRecipes />
+      <NewRecipe />
+      <ExhibitDisclaimer />
     </>
-  )
-}
+  );
+};
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <MainLayout>
-      {page}
-    </MainLayout>
-  )
-}
+  return <MainLayout>{page}</MainLayout>;
+};
 
 export default Page;

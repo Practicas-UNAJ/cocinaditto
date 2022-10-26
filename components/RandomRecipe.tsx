@@ -1,8 +1,11 @@
 import { NextComponentType } from "next";
 import Image from "next/image";
 import Ditto from "../assets/images/ditto-duda.png";
+import useRandomRecipe from "../hooks/useRandom";
 
 export const RandomRecipe: NextComponentType = () => {
+  const { getRandom } = useRandomRecipe();
+
   return (
     <div className="flex flex-row gap-3 self-center">
       <div className="w-40 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -13,7 +16,10 @@ export const RandomRecipe: NextComponentType = () => {
           <span>¿No sabes qué cocinar?</span>
           <span>¡Te ayudamos!</span>
         </div>
-        <button className="secondary-button-gradient text-white w-fit py-1 px-3 rounded-md shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+        <button
+          className="secondary-button-gradient text-white w-fit py-1 px-3 rounded-md shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+          onClick={() => getRandom()}
+        >
           Receta Aleatoria
         </button>
       </div>

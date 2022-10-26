@@ -11,8 +11,26 @@ export interface TrendingRecipesVars {
   pagination: Pagination;
 }
 
-export interface TrendingRecipesData {
-  trending: Recipe[];
+export interface RecipeData {
+  recipe: Recipe;
+}
+
+export interface RecipeVars {
+  id: string;
+}
+
+export interface RandomData {
+  recipe: Recipe;
+}
+
+export interface RandomVars {}
+
+export interface LikeData {
+  like: boolean;
+}
+
+export interface LikeVars {
+  id: string;
 }
 
 export interface RecipesData {

@@ -48,3 +48,49 @@ export const RecipesQuery = gql`
     }
   }
 `;
+
+export const RecipeQuery = gql`
+  query Recipe($id: String!) {
+    recipe(id: $id) {
+      id
+      author {
+        username
+        createdOn
+      }
+      title
+      thumbnail
+      country
+      content
+      portions
+      cooking_time
+      isVegan
+      glutenFree
+      createdOn
+      likes
+      likedByUser
+    }
+  }
+`;
+
+export const RandomQuery = gql`
+  query Random {
+    recipe: random {
+      id
+      author {
+        username
+        createdOn
+      }
+      title
+      thumbnail
+      country
+      content
+      portions
+      cooking_time
+      isVegan
+      glutenFree
+      createdOn
+      likes
+      likedByUser
+    }
+  }
+`;

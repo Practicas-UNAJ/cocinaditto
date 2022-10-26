@@ -8,8 +8,8 @@ import { CocinadittoInput } from "../components/Cocinaditto/Input";
 import Head from "next/head";
 import { FlagCheckbutton } from "../components/Cocinaditto/FlagCheckbutton";
 import glutenFreeIcon from "../assets/images/gluten-free.png";
-import veganIcon from "../../assets/images/vegan.png";
 import RichTextEditor from "../components/RichTextEditor";
+import veganIcon from "../assets/images/vegan.png";
 
 const Page: NextPageWithLayout = () => {
   const [isGlutenFree, setIsGlutenFree] = useState<boolean>(false);

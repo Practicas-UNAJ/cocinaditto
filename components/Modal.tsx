@@ -1,5 +1,7 @@
 import { FunctionComponent, ReactNode } from "react";
 import { EModals } from "../enums/modals";
+import { Delete } from "./Delete";
+import { Login } from "./Login";
 import { Register } from "./Register";
 
 interface IModalProps {
@@ -7,8 +9,9 @@ interface IModalProps {
 }
 
 const modals: Record<EModals, ReactNode> = {
-  LOGIN: <h1>Login</h1>,
+  LOGIN: <Login/>,
   REGISTER: <Register />,
+  DELETE: <Delete/>
 };
 
 const Modal: FunctionComponent<IModalProps> = ({ modal }) => {

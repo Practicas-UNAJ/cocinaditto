@@ -8,6 +8,7 @@ import { CocinadittoInput } from "../components/Cocinaditto/Input";
 import Head from "next/head";
 import { FlagCheckbutton } from "../components/Cocinaditto/FlagCheckbutton";
 import glutenFreeIcon from "../assets/images/gluten-free.png";
+import veganIcon from "../../assets/images/vegan.png";
 import RichTextEditor from "../components/RichTextEditor";
 
 const Page: NextPageWithLayout = () => {
@@ -58,13 +59,13 @@ const Page: NextPageWithLayout = () => {
         <FlagCheckbutton
           image={glutenFreeIcon}
           state={isGlutenFree}
-          setState={setIsGlutenFree}
+          setState={() => setIsGlutenFree(!isGlutenFree)}
         />
-        {/*<FlagCheckbutton
+        <FlagCheckbutton
           image={veganIcon}
           state={isVegan}
-          setState={setIsVegan}
-        />*/}
+          setState={() => setIsVegan(!isVegan)}
+        />
       </div>
 
       <RichTextEditor cb={(content: string) => console.log(content)} />

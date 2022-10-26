@@ -7,7 +7,9 @@ const schema = gql`
 
   type Query {
     recipes(query: RecipesQueryInput!): RecipesQueryResult
+    recipe(id: String!): Recipe
     trending(time: TrendingTime!, pagination: Pagination): [Recipe]
+    random: Recipe
   }
 
   type Mutation {
@@ -17,6 +19,7 @@ const schema = gql`
       type: RecipeMutationType!
       payload: RecipeMutationInput!
     ): RecipeMutationResult
+    like(id: String!): Boolean
   }
 
   type User {

@@ -13,3 +13,7 @@
 .secondary-button-gradient {
     background: radial-gradient(72.92% 4125.87% at 54.38% 43.75%, #79CED9 0%, #58A7BA 71.88%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 }
+
+.text-shadow {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

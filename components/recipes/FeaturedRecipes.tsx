@@ -3,6 +3,7 @@ import { NextComponentType } from "next";
 import { TrendingRecipesQuery } from "../../apollo/queries";
 import { TrendingRecipesData, TrendingRecipesVars } from "../../apollo/types";
 import { Recipe } from "../../modules/graphql/types/interfaces";
+import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
 import { RecipeCard } from "./RecipeCard";
 import { HIGHLIGHTED } from "./RecipeCard";
 
@@ -21,25 +22,24 @@ export const FeaturedRecipes: NextComponentType = () => {
     variables: { time: "LAST_WEEK", pagination: { offset: 0, take: 3 } },
   });
 
-  if (loading) return <p>Loading...</p>;
-
   if (error) return <p>{JSON.stringify(error)}</p>;
 
-  return data ? (
+  return (
     <div>
       <h2 className="mb-3">
         <span className="text-xl font-semibold">Recetas Destacadas </span>
         <span className="text-sm">(Última semana)</span>
       </h2>
-      <div className="flex flex-row gap-3 justify-center">
-        {data.trending.map((recipe: Recipe, key: number) => (
-          <div className="w-full" key={key}>
-            <RecipeCard {...recipe} highlighted={numToHighlighted(key)} />
-          </div>
-        ))}
-      </div>
+      {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
+      {data && (
+        <div className="flex flex-row gap-3 justify-center">
+          {data.trending.map((recipe: Recipe, key: number) => (
+            <div className="w-full" key={key}>
+              <RecipeCard {...recipe} highlighted={numToHighlighted(key)} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  ) : (
-    <></>
   );
 };

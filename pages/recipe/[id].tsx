@@ -10,6 +10,7 @@ import glutenFreeIcon from "../../assets/images/gluten-free.png";
 import useRecipePage from "../../hooks/useRecipePage";
 import { useRouter } from "next/router";
 import useLike from "../../hooks/useLike";
+import LoadingSpinner, { SpinnerType } from "../../components/LoadingSpinner";
 
 const Page: NextPageWithLayout = () => {
   const router = useRouter();
@@ -18,6 +19,8 @@ const Page: NextPageWithLayout = () => {
     router.query.id as string,
     recipe?.likedByUser!
   );
+
+  if (isLoading) return <LoadingSpinner type={SpinnerType.LARGE} />;
 
   return recipe ? (
     <>

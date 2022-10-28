@@ -8,6 +8,7 @@ import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../../apollo/enum";
 import { RecipesData, RecipesVars } from "../../apollo/types";
 import "swiper/css";
 import { Icon } from "@iconify/react";
+import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
 
 export const LastRecipes: NextComponentType = () => {
   const { data, loading, error } = useQuery<RecipesData, RecipesVars>(
@@ -24,11 +25,9 @@ export const LastRecipes: NextComponentType = () => {
     }
   );
 
-  if (loading) return <p>Loading...</p>;
-
   if (error) return <p>{JSON.stringify(error)}</p>;
 
-  return data ? (
+  return (
     <div>
       <h2 className="text-xl font-semibold mb-3">Últimas recetas</h2>
       <div className="flex flex-row mb-4 gap-4">
@@ -37,20 +36,21 @@ export const LastRecipes: NextComponentType = () => {
           Puedes deslizar hacia la derecha para ver mas recetas
         </p>
       </div>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        className="max-w-[640px] h-[228px]"
-        direction="horizontal"
-      >
-        {data.results.recipes.map((recipe: Recipe, key: number) => (
-          <SwiperSlide key={key} className="w-fit">
-            <RecipeCard {...recipe} highlighted={HIGHLIGHTED.NONE} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
+      {data && (
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          className="max-w-[640px] h-[228px]"
+          direction="horizontal"
+        >
+          {data.results.recipes.map((recipe: Recipe, key: number) => (
+            <SwiperSlide key={key} className="w-fit">
+              <RecipeCard {...recipe} highlighted={HIGHLIGHTED.NONE} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </div>
-  ) : (
-    <></>
   );
 };

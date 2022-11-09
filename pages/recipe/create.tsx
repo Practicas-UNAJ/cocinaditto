@@ -1,23 +1,29 @@
 import { ReactElement, useState } from "react";
-import { MainLayout } from "../components/layouts/MainLayout";
-import { NextPageWithLayout } from "./_app";
-import { CocinadittoTitle } from "../components/Cocinaditto/Title";
-import { ImageInput } from "../components/Cocinaditto/ImageInput";
+import { MainLayout } from "../../components/layouts/MainLayout";
+import { NextPageWithLayout } from "../_app";
+import { CocinadittoTitle } from "../../components/Cocinaditto/Title";
+import { ImageInput } from "../../components/Cocinaditto/ImageInput";
 import { Icon } from "@iconify/react";
-import { CocinadittoInput } from "../components/Cocinaditto/Input";
+import { CocinadittoInput } from "../../components/Cocinaditto/Input";
 import Head from "next/head";
-import { FlagCheckbutton } from "../components/Cocinaditto/FlagCheckbutton";
-import glutenFreeIcon from "../assets/images/gluten-free.png";
-import RichTextEditor from "../components/RichTextEditor";
-import veganIcon from "../assets/images/vegan.png";
+import { FlagCheckbutton } from "../../components/Cocinaditto/FlagCheckbutton";
+import glutenFreeIcon from "../../assets/images/gluten-free.png";
+import RichTextEditor from "../../components/RichTextEditor";
+import veganIcon from "../../assets/images/vegan.png";
+import useAuth from "../../hooks/useAuth";
+import Router from "next/router";
 
 const Page: NextPageWithLayout = () => {
   const [isGlutenFree, setIsGlutenFree] = useState<boolean>(false);
   const [isVegan, setIsVegan] = useState<boolean>(false);
+  const { currentUser } = useAuth();
+
+  if (!currentUser) Router.push("/");
+
   return (
     <>
       <Head>
-        <title>New recipe</title>
+        <title>Cocinaditto | Publicar una receta</title>
       </Head>
       <CocinadittoTitle text="Publicar receta" />
       <ImageInput />

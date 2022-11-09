@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Menu } from "./Menu";
 
 export const Navbar = () => {
-    const[showMenu, setShowMenu] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
 
   return (
     <nav className="relative grid justify-center text-black nav-gradient shadow shadow-primary-800 w-screen">
@@ -13,10 +13,13 @@ export const Navbar = () => {
           <h1 className="text-2xl font-medium">Cocinaditto</h1>
         </a>
       </Link>
-      <button className="h-full fit absolute right-5" onClick={() => {setShowMenu(!showMenu)}}>
+      <button
+        className="h-full fit absolute right-5"
+        onClick={() => setShowMenu(!showMenu)}
+      >
         <Icon icon="charm:menu-hamburger" className="w-full h-full" />
       </button>
-      { showMenu && <Menu setState={() => {setShowMenu(!showMenu)}}/> }
+      {showMenu && <Menu setState={() => setShowMenu(!showMenu)} />}
     </nav>
   );
 };

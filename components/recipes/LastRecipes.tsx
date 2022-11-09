@@ -9,6 +9,7 @@ import { RecipesData, RecipesVars } from "../../apollo/types";
 import "swiper/css";
 import { Icon } from "@iconify/react";
 import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
+import ErrorImage, { ErrorImageType } from "../ErrorImage";
 
 export const LastRecipes: NextComponentType = () => {
   const { data, loading, error } = useQuery<RecipesData, RecipesVars>(
@@ -25,8 +26,6 @@ export const LastRecipes: NextComponentType = () => {
     }
   );
 
-  if (error) return <p>{JSON.stringify(error)}</p>;
-
   return (
     <div>
       <h2 className="text-xl font-semibold mb-3">Últimas recetas</h2>
@@ -36,6 +35,7 @@ export const LastRecipes: NextComponentType = () => {
           Puedes deslizar hacia la derecha para ver mas recetas
         </p>
       </div>
+      {error && <ErrorImage type={ErrorImageType.SMALL} />}
       {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
       {data && (
         <Swiper

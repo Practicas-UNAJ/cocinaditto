@@ -5,3 +5,9 @@ export const LikeMutation = gql`
     like(id: $id)
   }
 `;
+
+export const LoginMutation = gql`
+  mutation Login($credentials: LoginMutationInput!) {
+    login(credentials: $credentials)
+  }
+`;

@@ -25,6 +25,16 @@ export interface RandomData {
 
 export interface RandomVars {}
 
+export interface LoginData {
+  login: string;
+}
+export interface LoginVars {
+  credentials: {
+    email: string;
+    password: string;
+  };
+}
+
 export interface LikeData {
   like: boolean;
 }

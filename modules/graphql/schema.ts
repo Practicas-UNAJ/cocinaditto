@@ -6,6 +6,7 @@ const schema = gql`
   union RecipeMutationResult = CreateResult | EditResult | DeleteResult
 
   type Query {
+    user: User
     recipes(query: RecipesQueryInput!): RecipesQueryResult
     recipe(id: String!): Recipe
     trending(time: TrendingTime!, pagination: Pagination): [Recipe]

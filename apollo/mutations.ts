@@ -11,3 +11,9 @@ export const LoginMutation = gql`
     login(credentials: $credentials)
   }
 `;
+
+export const RegisterMutation = gql`
+  mutation Login($credentials: RegisterMutationInput!) {
+    register(credentials: $credentials)
+  }
+`;

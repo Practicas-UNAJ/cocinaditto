@@ -34,6 +34,17 @@ export interface LoginVars {
     password: string;
   };
 }
+export interface RegisterData {
+  register: string;
+}
+export interface RegisterVars {
+  credentials: {
+    email: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+  };
+}
 
 export interface LikeData {
   like: boolean;

@@ -5,6 +5,7 @@ import { TrendingRecipesData, TrendingRecipesVars } from "../../apollo/types";
 import { Recipe } from "../../modules/graphql/types/interfaces";
 import ErrorImage, { ErrorImageType } from "../ErrorImage";
 import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
+import NoContentImage, { NoContentImageType } from "../NoContentImage";
 import { RecipeCard } from "./RecipeCard";
 import { HIGHLIGHTED } from "./RecipeCard";
 
@@ -31,7 +32,7 @@ export const FeaturedRecipes: NextComponentType = () => {
       </h2>
       {error && <ErrorImage type={ErrorImageType.SMALL} />}
       {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
-      {data && (
+      {data && data.trending.length > 0 ? (
         <div className="flex flex-row gap-3 justify-center">
           {data.trending.map((recipe: Recipe, key: number) => (
             <div className="w-full" key={key}>
@@ -39,6 +40,8 @@ export const FeaturedRecipes: NextComponentType = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <NoContentImage type={NoContentImageType.SMALL} />
       )}
     </div>
   );

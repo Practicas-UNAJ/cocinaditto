@@ -11,13 +11,13 @@ export type Pagination = {
 };
 
 export type RecipeQueryFields = {
-  title: string;
-  country: string;
-  portions: number;
-  isGlutenFree: boolean;
-  isVegan: boolean;
-  author: string;
-  createdOn: DateRange;
+  title?: string;
+  country?: string;
+  portions?: number;
+  isGlutenFree?: boolean;
+  isVegan?: boolean;
+  author?: string;
+  createdOn?: DateRange;
 };
 
 export type DateRange = {

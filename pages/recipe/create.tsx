@@ -12,6 +12,7 @@ import RichTextEditor from "../../components/RichTextEditor";
 import veganIcon from "../../assets/images/vegan.png";
 import useAuth from "../../hooks/useAuth";
 import Router from "next/router";
+import { RecipeImage } from "../../components/recipes/RecipeImage";
 
 const Page: NextPageWithLayout = () => {
   const [isGlutenFree, setIsGlutenFree] = useState<boolean>(false);
@@ -26,7 +27,9 @@ const Page: NextPageWithLayout = () => {
         <title>Cocinaditto | Publicar una receta</title>
       </Head>
       <CocinadittoTitle text="Publicar receta" />
-      <ImageInput />
+      <ImageInput>
+        <RecipeImage/>
+      </ImageInput>
       <CocinadittoInput
         className="w-full bg-brown-500 placeholder:text-brown-700"
         type="text"

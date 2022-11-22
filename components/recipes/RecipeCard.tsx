@@ -44,7 +44,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
     <Link href={`/recipe/${id}`}>
       <div
         key={id}
-        className="relative gradient min-w-[9rem] p-2 rounded-xl text-sm shadow-black/25 shadow-md "
+        className="relative gradient w-full max-w-[228px] p-2 rounded-xl text-sm shadow-black/25 shadow-md "
       >
         <div className="w-5 absolute -translate-x-2/3 -translate-y-2/3">
           {highlighted !== HIGHLIGHTED.NONE && (

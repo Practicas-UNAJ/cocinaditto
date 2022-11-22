@@ -19,7 +19,7 @@ export const Navbar = () => {
       >
         <Icon icon="charm:menu-hamburger" className="w-full h-full" />
       </button>
-      {showMenu && <Menu setState={() => setShowMenu(!showMenu)} />}
+      <Menu state={showMenu} setState={() => {setShowMenu(!showMenu)}}/>
     </nav>
   );
 };

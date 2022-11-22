@@ -1,8 +1,3 @@
-import { NextComponentType } from "next";
-import { ReactNode, useState } from "react";
-import { RecipeImage } from "../recipes/RecipeImage";
-import placeholder from "../../assets/images/recipe-placeholder.png";
-
 export const ImageInput = ({children}: any) => {
   return (
     <div className="relative group object-cover">

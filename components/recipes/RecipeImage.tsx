@@ -1,15 +1,22 @@
 import Image from "next/image";
 import { FunctionComponent } from "react";
-
+import placeholder from "../../assets/images/recipe-placeholder.png";
 interface IRecipeImageData {
-  image: string;
+  image?: string;
 }
 
 export const RecipeImage: FunctionComponent<IRecipeImageData> = ({ image }) => {
   return (
-    <img
-      src={image}
-      className="object-cover aspect-[5/2] rounded-md border-[1px] border-brown-900"
-    />
+    <div className="relative aspect-[5/2] rounded-md border border-brown-900 overflow-hidden">
+      <Image
+        src={image ? image : placeholder.src}
+        layout="fill"
+        objectFit="cover"
+      />
+      {
+        !image &&
+        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-brown-700">Publicar una imagen de tu receta</span>
+      }
+    </div>
   );
 };

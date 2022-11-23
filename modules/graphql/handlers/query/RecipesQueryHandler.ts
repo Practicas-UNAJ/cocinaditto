@@ -10,7 +10,7 @@ const RecipesQueryHandler = async (
   const where: Prisma.RecipeWhereInput | undefined = query.values
     ? {
         author: {
-          username: query.values.author ?? undefined,
+          id: query.values.author ?? undefined,
         },
         title: {
           startsWith: query.values.title ?? undefined,

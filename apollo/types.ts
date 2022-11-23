@@ -1,4 +1,4 @@
-import { Recipe } from "../modules/graphql/types/interfaces";
+import { Recipe, User } from "../modules/graphql/types/interfaces";
 import { Pagination, RecipeQueryFields } from "../modules/graphql/types/types";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "./enum";
 
@@ -9,6 +9,14 @@ export interface TrendingRecipesData {
 export interface TrendingRecipesVars {
   time: string;
   pagination: Pagination;
+}
+
+export interface UserData {
+  user: User;
+}
+
+export interface UserVars {
+  id?: string;
 }
 
 export interface RecipeData {

@@ -6,7 +6,7 @@ import { RandomData, RandomVars } from "../apollo/types";
 
 const useRandomRecipe = () => {
   const router = useRouter();
-  const [getRandom, { data, error }] = useLazyQuery<RandomData, RandomVars>(
+  const [getRandom, { data }] = useLazyQuery<RandomData, RandomVars>(
     RandomQuery,
     {
       fetchPolicy: "no-cache",

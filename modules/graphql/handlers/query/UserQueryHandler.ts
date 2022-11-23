@@ -3,9 +3,19 @@ import ApolloContext from "../../types/context";
 
 const UserQueryHandler = async (
   _parent: any,
-  _: unknown,
+  { id }: { id: string },
   ctx: ApolloContext
 ) => {
+  if (id) {
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  }
+
   return ctx.user;
 };
 

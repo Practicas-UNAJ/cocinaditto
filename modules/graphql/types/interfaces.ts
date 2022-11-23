@@ -3,6 +3,7 @@ export interface User {
   username: string;
   thumbnail: string;
   createdOn: Date;
+  recipeCount: number;
 }
 
 export interface Recipe {

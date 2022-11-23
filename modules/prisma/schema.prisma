@@ -20,19 +20,7 @@ model User {
   savedRecipes SavedRecipe[]
   likes        Like[]
 
-  followers Follows[] @relation("following")
-  following Follows[] @relation("follower")
 }
-
-model Follows {
-  follower    User   @relation("follower", onDelete: Cascade, fields: [followerId], references: [id])
-  followerId  String
-  following   User   @relation("following", onDelete: Cascade, fields: [followingId], references: [id])
-  followingId String
-
-  @@id([followerId, followingId])
-}
-
 model Recipe {
   id           String   @id @default(uuid())
   userId       String

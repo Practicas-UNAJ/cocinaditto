@@ -10,6 +10,7 @@ import "swiper/css";
 import { Icon } from "@iconify/react";
 import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
 import ErrorImage, { ErrorImageType } from "../ErrorImage";
+import NoContentImage, { NoContentImageType } from "../NoContentImage";
 
 export const LastRecipes: NextComponentType = () => {
   const { data, loading, error } = useQuery<RecipesData, RecipesVars>(
@@ -37,19 +38,25 @@ export const LastRecipes: NextComponentType = () => {
       </div>
       {error && <ErrorImage type={ErrorImageType.SMALL} />}
       {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
-      {data && (
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={30}
-          className="max-w-[640px] h-[228px]"
-          direction="horizontal"
-        >
-          {data.results.recipes.map((recipe: Recipe, key: number) => (
-            <SwiperSlide key={key} className="w-fit">
-              <RecipeCard {...recipe} highlighted={HIGHLIGHTED.NONE} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      {data ? (
+        data.results.recipes.length > 0 || data.results.hasMore ? (
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            className="max-w-[640px] h-[228px]"
+            direction="horizontal"
+          >
+            {data.results.recipes.map((recipe: Recipe, key: number) => (
+              <SwiperSlide key={key} className="w-fit">
+                <RecipeCard {...recipe} highlighted={HIGHLIGHTED.NONE} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <NoContentImage type={NoContentImageType.SMALL} />
+        )
+      ) : (
+        <></>
       )}
     </div>
   );

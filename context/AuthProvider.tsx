@@ -10,6 +10,7 @@ import Router from "next/router";
 import { gql } from "apollo-server-core";
 import { IUser } from "../interfaces/user";
 import { getApps, initializeApp } from "firebase/app";
+import { UserQuery } from "../apollo/queries";
 
 if (!getApps().length)
   initializeApp({
@@ -44,15 +45,7 @@ const AuthProvider = ({ children }: PropsWithChildren<any>) => {
 
   const fetch = async () => {
     const { data } = await client.query({
-      query: gql`
-        query User {
-          user {
-            id
-            username
-            thumbnail
-          }
-        }
-      `,
+      query: UserQuery,
     });
 
     if (data) setCurrentUser(data.user);

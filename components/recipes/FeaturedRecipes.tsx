@@ -32,16 +32,20 @@ export const FeaturedRecipes: NextComponentType = () => {
       </h2>
       {error && <ErrorImage type={ErrorImageType.SMALL} />}
       {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
-      {data && data.trending.length > 0 ? (
-        <div className="flex flex-row gap-3 justify-center">
-          {data.trending.map((recipe: Recipe, key: number) => (
-            <div className="w-full" key={key}>
-              <RecipeCard {...recipe} highlighted={numToHighlighted(key)} />
-            </div>
-          ))}
-        </div>
+      {data ? (
+        data.trending.length > 0 ? (
+          <div className="flex flex-row gap-3 justify-center">
+            {data.trending.map((recipe: Recipe, key: number) => (
+              <div className="w-full" key={key}>
+                <RecipeCard {...recipe} highlighted={numToHighlighted(key)} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <NoContentImage type={NoContentImageType.SMALL} />
+        )
       ) : (
-        <NoContentImage type={NoContentImageType.SMALL} />
+        <></>
       )}
     </div>
   );

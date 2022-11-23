@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+export const UserQuery = gql`
+  query User($id: String) {
+    user(id: $id) {
+      id
+      username
+      thumbnail
+    }
+  }
+`;
+
 export const TrendingRecipesQuery = gql`
   query Trending($time: TrendingTime!, $pagination: Pagination!) {
     trending(time: $time, pagination: $pagination) {

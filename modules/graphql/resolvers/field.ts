@@ -1,7 +1,20 @@
-import { Recipe } from "@prisma/client";
+import { Recipe, User } from "@prisma/client";
 import ApolloContext from "../types/context";
 
 const Field = {
+  User: {
+    recipeCount: async (
+      _parent: User,
+      _: any,
+      ctx: ApolloContext
+    ): Promise<number> => {
+      return await ctx.prisma.recipe.count({
+        where: {
+          userId: _parent.id,
+        },
+      });
+    },
+  },
   Recipe: {
     likes: async (
       _parent: Recipe,

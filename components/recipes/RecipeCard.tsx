@@ -16,7 +16,7 @@ export enum HIGHLIGHTED {
 }
 
 interface RecipeCardData extends Recipe {
-  highlighted: HIGHLIGHTED;
+  highlighted?: HIGHLIGHTED;
 }
 
 const highlightedObject = {
@@ -27,7 +27,7 @@ const highlightedObject = {
 
 export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   id,
-  highlighted,
+  highlighted = HIGHLIGHTED.NONE,
   thumbnail,
   title,
   cooking_time,

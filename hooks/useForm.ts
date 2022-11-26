@@ -2,7 +2,7 @@ import { ApolloError } from "@apollo/client";
 import { ValidationError } from "joi";
 import { useState } from "react";
 
-const useForm = <T>({ initialValue }: { initialValue?: T }) => {
+const useForm = <T>({ initialValue }: { initialValue?: Partial<T> }) => {
   const [form, setForm] = useState<T>(initialValue as T);
   const [errors, setErrors] = useState<T | null>();
 

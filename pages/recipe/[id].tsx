@@ -37,11 +37,11 @@ const Page: NextPageWithLayout = () => {
         {recipe.isVegan && <FlagCheckbutton image={veganIcon} state={true} />}
       </div>
 
-      <div className="bg-card-500 font-light text-card-900 p-4 rounded-2xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+      <div className="bg-brown-500 font-light text-brown-900 p-4 rounded-2xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
         {recipe.content}
       </div>
 
-      <div className="flex flex-row text-card-900 justify-center items-center gap-2">
+      <div className="flex flex-row text-brown-900 justify-center items-center gap-2">
         <button onClick={() => likeRecipe()}>{likeIcon}</button>
         {recipe.likes}
       </div>
@@ -50,7 +50,7 @@ const Page: NextPageWithLayout = () => {
         <button className="rounded-full font-semibold p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-danger-600 text-white">
           Eliminar
         </button>
-        <button className="rounded-full font-semibold p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-secondary-500 text-card-900">
+        <button className="rounded-full font-semibold p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-secondary-500 text-brown-900">
           Editar
         </button>
       </div>

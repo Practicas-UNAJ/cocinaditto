@@ -7,7 +7,7 @@ interface IRecipeImageData {
 
 export const RecipeImage: FunctionComponent<IRecipeImageData> = ({ image }) => {
   return (
-    <div className="relative aspect-[5/2] rounded-md border border-brown-900 overflow-hidden">
+    <div className="relative aspect-video rounded-md border border-brown-900 overflow-hidden">
       <Image
         src={image ? image : placeholder.src}
         layout="fill"

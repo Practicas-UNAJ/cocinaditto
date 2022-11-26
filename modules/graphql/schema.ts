@@ -45,6 +45,7 @@ const schema = gql`
     createdOn: DateTime
     likes: Int
     likedByUser: Boolean
+    isOwner: Boolean
   }
 
   type RecipesQueryResult {

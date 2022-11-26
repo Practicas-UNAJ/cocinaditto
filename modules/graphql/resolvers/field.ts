@@ -43,6 +43,14 @@ const Field = {
 
       return Boolean(like);
     },
+    isOwner: async (
+      _parent: Recipe,
+      _: any,
+      ctx: ApolloContext
+    ): Promise<Boolean> => {
+      if (!ctx.user) return false;
+      return _parent.userId === ctx.user.id;
+    },
   },
 };
 

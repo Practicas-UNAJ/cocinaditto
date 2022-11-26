@@ -29,6 +29,7 @@ export const TrendingRecipesQuery = gql`
       createdOn
       likes
       likedByUser
+      isOwner
     }
   }
 `;
@@ -54,6 +55,7 @@ export const RecipesQuery = gql`
         createdOn
         likes
         likedByUser
+        isOwner
       }
     }
   }
@@ -78,6 +80,7 @@ export const RecipeQuery = gql`
       createdOn
       likes
       likedByUser
+      isOwner
     }
   }
 `;
@@ -101,6 +104,7 @@ export const RandomQuery = gql`
       createdOn
       likes
       likedByUser
+      isOwner
     }
   }
 `;

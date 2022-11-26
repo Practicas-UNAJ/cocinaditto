@@ -17,3 +17,21 @@ export const RegisterMutation = gql`
     register(credentials: $credentials)
   }
 `;
+
+export const RecipeMutation = gql`
+  mutation Recipe($type: RecipeMutationType!, $payload: RecipeMutationInput!) {
+    recipe(type: $type, payload: $payload) {
+      ... on DeleteResult {
+        deleted
+      }
+
+      ... on CreateResult {
+        created
+      }
+
+      ... on EditResult {
+        edited
+      }
+    }
+  }
+`;

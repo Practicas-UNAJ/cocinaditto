@@ -1,3 +1,4 @@
+import { RecipeMutationType } from "../modules/graphql/types/enum";
 import { Recipe, User } from "../modules/graphql/types/interfaces";
 import { Pagination, RecipeQueryFields } from "../modules/graphql/types/types";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "./enum";
@@ -78,4 +79,19 @@ export interface RecipesVars {
     };
     pagination?: Pagination;
   };
+}
+
+export interface RecipeMutationData {
+  recipe: {
+    deleted?: boolean;
+    created?: string;
+    edited?: boolean;
+  };
+}
+
+export interface RecipeMutationVars {
+  type: RecipeMutationType;
+  payload: Partial<
+    Omit<Recipe, "author" | "id" | "createdOn" | "likes" | "likedByUser">
+  >;
 }

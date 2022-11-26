@@ -13,11 +13,12 @@ export interface Recipe {
   thumbnail: string;
   country: string;
   content: string;
-  portions: number;
-  cooking_time: number;
+  portions: string | number;
+  cooking_time: string | number;
   isVegan: boolean;
   glutenFree: boolean;
   createdOn: Date;
   likes: number;
   likedByUser: boolean;
+  isOwner: boolean;
 }

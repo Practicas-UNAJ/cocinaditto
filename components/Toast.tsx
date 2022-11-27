@@ -7,7 +7,7 @@ interface ToastProps extends PropsWithChildren {
 
 const Toast: FunctionComponent<ToastProps> = ({ type, children }) => {
   const className =
-    "relative -translate-x-1/2 left-1/2 flex flex-col duration-300 justify-center items-center rounded-t-xl h-20 w-1/4";
+    "relative -translate-x-1/2 left-1/2 flex flex-col duration-300 justify-center items-center rounded-t-xl h-20 w-1/4 z-50";
   switch (type) {
     case EToasts.SUCCESS: {
       return (

@@ -4,13 +4,20 @@ import { RecipesQuery } from "../apollo/queries";
 import { RecipesData, RecipesVars } from "../apollo/types";
 import { Recipe } from "../modules/graphql/types/interfaces";
 
-const useRecipes = (limit?: number) => {
+const useRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [fetch, { data, loading, error }] = useLazyQuery<
     RecipesData,
     RecipesVars
-  >(RecipesQuery);
+  >(RecipesQuery, {
+    fetchPolicy: "no-cache",
+  });
   const [hasMore, setHasMore] = useState(true);
+
+  const clear = () => {
+    setRecipes([]);
+    setHasMore(true);
+  };
 
   useEffect(() => {
     if (data?.results) {
@@ -40,6 +47,7 @@ const useRecipes = (limit?: number) => {
     recipes,
     loading,
     error,
+    clear,
   };
 };
 

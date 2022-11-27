@@ -1,6 +1,7 @@
 import { EModals } from "../enums/modals";
 import { UserCredential } from "firebase/auth";
 import { IUser } from "./user";
+import { EToasts } from "../enums/toasts";
 
 export interface IModalContext {
   modal: EModals | null;
@@ -14,4 +15,8 @@ export interface IAuthContext {
   signOut: () => any;
   signUp: (token: string) => Promise<UserCredential>;
   fetch: () => Promise<void>;
+}
+
+export interface IToastContext {
+  showToast: (toast: EToasts, message: string) => void;
 }

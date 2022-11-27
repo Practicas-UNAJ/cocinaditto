@@ -15,6 +15,7 @@ import { setContext } from "@apollo/client/link/context";
 import ModalProvider from "../context/ModalProvider";
 import Head from "next/head";
 import AuthProvider from "../context/AuthProvider";
+import ToastProvider from "../context/ToastProvider";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -65,11 +66,13 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <ApolloProvider client={client}>
-        <AuthProvider>
-          <ModalProvider>
-            {getLayout(<Component {...pageProps} />)}
-          </ModalProvider>
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <ModalProvider>
+              {getLayout(<Component {...pageProps} />)}
+            </ModalProvider>
+          </AuthProvider>
+        </ToastProvider>
       </ApolloProvider>
     </>
   );

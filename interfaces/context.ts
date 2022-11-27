@@ -6,7 +6,7 @@ import { EToasts } from "../enums/toasts";
 export interface IModalContext {
   modal: EModals | null;
   unsetModal: () => void;
-  setModal: (modal: EModals) => void;
+  setModal: (ev: any, modal: EModals) => void;
 }
 
 export interface IAuthContext {

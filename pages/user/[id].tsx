@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import useProfile from "../../hooks/useProfile";
 import useRecipes from "../../hooks/useRecipes";
 import { RecipeCard } from "../../components/recipes/RecipeCard";
+import { RecipeList } from "../../components/recipes/RecipeList";
 
 const Page: NextPageWithLayout = () => {
   const router = useRouter();
@@ -19,28 +20,26 @@ const Page: NextPageWithLayout = () => {
     error: profileError,
   } = useProfile(router.query.id as string);
   const {
-    fetch,
     recipes,
+    fetchMore,
+    hasMore,
     loading: recipesLoading,
     error: recipesError,
   } = useRecipes();
 
-  useEffect(() => {
-    if (user)
-      fetch({
-        variables: {
-          query: {
-            values: {
-              author: router.query.id as string,
-            },
-            sort: {
-              by: RecipeQuerySortBy.CREATED_ON,
-              order: RecipeQuerySortOrder.DESC,
-            },
-          },
+  const fetchMoreRecipes = () => {
+    fetchMore({
+      query: {
+        values: {
+          author: router.query.id as string,
         },
-      });
-  }, [user]);
+        sort: {
+          by: RecipeQuerySortBy.CREATED_ON,
+          order: RecipeQuerySortOrder.DESC,
+        },
+      },
+    });
+  };
 
   if (profileLoading) return <LoadingSpinner type={SpinnerType.LARGE} />;
   if (profileError) return <ErrorImage type={ErrorImageType.LARGE} />;
@@ -65,10 +64,15 @@ const Page: NextPageWithLayout = () => {
           </div>
         </div>
       </div>
+      {recipes && (
+        <RecipeList
+          list={recipes}
+          fetchMore={fetchMoreRecipes}
+          hasMore={hasMore}
+          loading={recipesLoading}
+        />
+      )}
       {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
-      {recipesLoading && <LoadingSpinner type={SpinnerType.SMALL} />}
-      {recipes &&
-        recipes.map((recipe, key) => <RecipeCard {...recipe} key={key} />)}
     </>
   ) : (
     <></>

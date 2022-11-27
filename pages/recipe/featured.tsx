@@ -26,7 +26,7 @@ const Page: NextPageWithLayout = () => {
       query: {
         sort: {
           by: selectRef.current?.selected?.sortBy as RecipeQuerySortBy,
-          order: RecipeQuerySortOrder.DESC,
+          order: selectRef.current?.selected?.sortOrder as RecipeQuerySortOrder,
         },
       },
     });

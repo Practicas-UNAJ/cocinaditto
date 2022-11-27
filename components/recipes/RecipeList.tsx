@@ -1,4 +1,10 @@
-import { FunctionComponent, MutableRefObject, useEffect, useRef } from "react";
+import {
+  FunctionComponent,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useIsInViewport from "../../hooks/useIsInViewport";
 import { Recipe } from "../../modules/graphql/types/interfaces";
 import LoadingSpinner, { SpinnerType } from "../LoadingSpinner";
@@ -16,7 +22,7 @@ export const RecipeList: FunctionComponent<{
 
   useEffect(() => {
     if (hasMore && visible) fetchMore();
-  }, [visible]);
+  }, [visible, list]);
 
   return (
     <>

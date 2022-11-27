@@ -47,13 +47,13 @@ export const Menu: FunctionComponent<IMenuProps> = (props) => {
         <>
           <button
             className="text-shadow"
-            onClick={() => setModal(EModals.LOGIN)}
+            onClick={(ev) => setModal(ev, EModals.LOGIN)}
           >
             Iniciar sesión
           </button>
           <button
             className="text-shadow"
-            onClick={() => setModal(EModals.REGISTER)}
+            onClick={(ev) => setModal(ev, EModals.REGISTER)}
           >
             Registrarse
           </button>

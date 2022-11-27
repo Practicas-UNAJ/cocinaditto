@@ -1,9 +1,12 @@
 import { Icon } from "@iconify/react";
 import { NextComponentType } from "next";
+import { MutableRefObject } from "react";
+import { EModals } from "../enums/modals";
 import useAuth from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
 import useLogin from "../hooks/useLogin";
 import useModal from "../hooks/useModal";
+import useOutsideClick from "../hooks/useOutsideClick";
 import { CocinadittoInput } from "./Cocinaditto/Input";
 
 interface ILoginForm {
@@ -12,10 +15,12 @@ interface ILoginForm {
 }
 
 export const Login: NextComponentType = () => {
-  const { unsetModal } = useModal();
+  const { unsetModal, setModal } = useModal();
   const { form, onChange, submit } = useForm<ILoginForm>({});
   const { login } = useLogin();
   const { currentUser } = useAuth();
+
+  const ref = useOutsideClick(unsetModal) as MutableRefObject<HTMLFormElement>;
 
   if (currentUser) unsetModal();
 
@@ -32,6 +37,7 @@ export const Login: NextComponentType = () => {
 
   return (
     <form
+      ref={ref}
       className="bg-gradient-radial from-primary-700 to-primary-900 relative flex flex-col items-center gap-2 px-10 py-7 rounded-3xl"
       onSubmit={(ev: any) => submit({ ev, func: loginWrapper })}
     >
@@ -56,8 +62,10 @@ export const Login: NextComponentType = () => {
         Iniciar sesión
       </button>
       <div className="font-normal text-xs text-white">
-        ¿<span className="font-semibold">No tienes</span> una cuenta?
-        Registrarse
+        ¿<span className="font-semibold">No tienes</span> una cuenta?{" "}
+        <span onClick={(ev) => setModal(ev, EModals.REGISTER)}>
+          Registrarse
+        </span>
       </div>
     </form>
   );

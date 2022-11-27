@@ -11,9 +11,6 @@ const ToastProvider = ({ children }: PropsWithChildren<any>) => {
   const [message, setMessage] = useState<string>("");
   const [type, setType] = useState<EToasts | null>(null);
 
-  const successClassname = `relative -translate-x-1/2 left-1/2 flex flex-col duration-300 justify-center items-center rounded-t-xl h-20 w-1/4 bg-gradient-to-br from-success-500 to-success-800`;
-  const failureClassname = ` bg-gradient-to-br from-danger-500 to-danger-800`;
-
   const showToast = (toast: EToasts, message: string) => {
     setType(toast);
     setMessage(message);

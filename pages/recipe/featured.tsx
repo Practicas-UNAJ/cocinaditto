@@ -1,34 +1,36 @@
-import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { ElementRef, ReactElement, useRef } from "react";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../../apollo/enum";
-import { RecipesQuery } from "../../apollo/queries";
-import { RecipesData, RecipesVars } from "../../apollo/types";
 import { CocinadittoTitle } from "../../components/Cocinaditto/Title";
 import ErrorImage, { ErrorImageType } from "../../components/ErrorImage";
 import { MainLayout } from "../../components/layouts/MainLayout";
-import LoadingSpinner, { SpinnerType } from "../../components/LoadingSpinner";
 import { RecipeList } from "../../components/recipes/RecipeList";
 import { NextPageWithLayout } from "../_app";
 import SortModifier from "../../components/SortModifier";
+import useRecipes from "../../hooks/useRecipes";
 
 type SortHandle = ElementRef<typeof SortModifier>;
 
 const Page: NextPageWithLayout = () => {
   const selectRef = useRef<SortHandle>(null);
-  const { data, loading, error } = useQuery<RecipesData, RecipesVars>(
-    RecipesQuery,
-    {
-      variables: {
-        query: {
-          sort: {
-            by: selectRef.current?.selected?.sortBy as RecipeQuerySortBy,
-            order: RecipeQuerySortOrder.DESC,
-          },
+  const {
+    recipes,
+    fetchMore,
+    hasMore,
+    loading: recipesLoading,
+    error: recipesError,
+  } = useRecipes();
+
+  const fetchMoreRecipes = () => {
+    fetchMore({
+      query: {
+        sort: {
+          by: selectRef.current?.selected?.sortBy as RecipeQuerySortBy,
+          order: RecipeQuerySortOrder.DESC,
         },
       },
-    }
-  );
+    });
+  };
 
   return (
     <>
@@ -37,9 +39,15 @@ const Page: NextPageWithLayout = () => {
       </Head>
       <CocinadittoTitle text="Recetas destacadas" />
       <SortModifier ref={selectRef} />
-      {error && <ErrorImage type={ErrorImageType.SMALL} />}
-      {loading && <LoadingSpinner type={SpinnerType.SMALL} />}
-      <RecipeList list={data?.results.recipes} />
+      {recipes && (
+        <RecipeList
+          list={recipes}
+          fetchMore={fetchMoreRecipes}
+          hasMore={hasMore}
+          loading={recipesLoading}
+        />
+      )}
+      {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
     </>
   );
 };

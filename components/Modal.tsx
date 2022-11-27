@@ -9,9 +9,9 @@ interface IModalProps {
 }
 
 const modals: Record<EModals, ReactNode> = {
-  LOGIN: <Login/>,
+  LOGIN: <Login />,
   REGISTER: <Register />,
-  DELETE: <Delete/>
+  DELETE: <Delete />,
 };
 
 const Modal: FunctionComponent<IModalProps> = ({ modal }) => {

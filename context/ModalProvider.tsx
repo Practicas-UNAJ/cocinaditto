@@ -9,7 +9,11 @@ const ModalProvider = ({ children }: PropsWithChildren<any>) => {
   const [modal, setModalState] = useState<EModals | null>(null);
 
   const unsetModal = () => setModalState(null);
-  const setModal = (modal: EModals) => setModalState(modal);
+
+  const setModal = (ev: any, modal: EModals) => {
+    setModalState(modal);
+    ev.stopPropagation();
+  };
 
   const value = {
     modal,

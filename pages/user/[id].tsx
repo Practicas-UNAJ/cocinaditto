@@ -11,6 +11,8 @@ import useProfile from "../../hooks/useProfile";
 import useRecipes from "../../hooks/useRecipes";
 import { RecipeCard } from "../../components/recipes/RecipeCard";
 import { RecipeList } from "../../components/recipes/RecipeList";
+import { UserInfo } from "../../components/Cocinaditto/UserInfo";
+import { EInfoView } from "../../enums/InfoView";
 
 const Page: NextPageWithLayout = () => {
   const router = useRouter();
@@ -46,24 +48,7 @@ const Page: NextPageWithLayout = () => {
 
   return user ? (
     <>
-      <div className="flex flex-row justify-around gap-7">
-        <UserImage image={user.thumbnail} />
-        <div className="flex flex-col justify-around">
-          <span className="font-semibold text-xl">{user.username}</span>
-          <div className="flex flex-row items-center gap-3">
-            <Icon icon="bxs:user" className="w-7 h-7" />
-            <span>200 seguidores</span>
-          </div>
-          <div className="flex flex-row items-center gap-3">
-            <Icon icon="bx:world" className="w-7 h-7" />
-            <span>aca va un emoji</span>
-          </div>
-          <div className="flex flex-row items-center gap-3">
-            <Icon icon="bxs:note" className="w-7 h-7" />
-            <span>10 recetas</span>
-          </div>
-        </div>
-      </div>
+      <UserInfo view={EInfoView.USER} username={user.username} thumbnail={user.thumbnail} recipes={recipes.length} />
       {recipes && (
         <RecipeList
           list={recipes}

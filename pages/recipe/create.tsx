@@ -71,7 +71,7 @@ const Page: NextPageWithLayout = () => {
         className="flex flex-col gap-5"
         onSubmit={(ev) => submit({ ev, func: submitWrapper })}
       >
-        <ImageInput ref={imageRef} />
+        <ImageInput ref={imageRef} type="RECIPE" />
         <CocinadittoInput
           className="w-full bg-brown-500 placeholder:text-brown-700"
           type="text"

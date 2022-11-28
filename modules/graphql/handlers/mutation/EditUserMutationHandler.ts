@@ -28,9 +28,9 @@ const EditUser = async (
       id: ctx.user.id,
     },
     data: {
-      username: payload.username,
+      username: payload.username ?? undefined,
       thumbnail: thumbnail ?? undefined,
-      country: payload.country,
+      country: payload.country ?? undefined,
     },
   });
 

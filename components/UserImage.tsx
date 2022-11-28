@@ -9,12 +9,11 @@ interface IUserImageData {
 
 export const UserImage: FunctionComponent<IUserImageData> = ({image}) => {
   return (
-    <div className="relative grow max-w-xs object-cover aspect-square rounded-3xl border border-brown-900 overflow-hidden">
+    <div className="relative left-1/2 -translate-x-1/2 aspect-square max-w-xs rounded-md border border-brown-900 overflow-hidden">
       <Image
         src={image ? image : placeholder.src}
         layout="fill"
         objectFit="cover"
-        className="z-0"
       />
       {
         !image &&

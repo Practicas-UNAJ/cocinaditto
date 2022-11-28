@@ -8,6 +8,8 @@ import Field from "../modules/graphql/resolvers/field";
 import Enum from "../modules/graphql/resolvers/enum";
 import { DateTimeResolver } from "graphql-scalars";
 import Union from "../modules/graphql/resolvers/union";
+import { GraphQLError } from "graphql";
+import { randomUUID } from "crypto";
 
 const apollo = new ApolloServer({
   typeDefs,
@@ -20,6 +22,22 @@ const apollo = new ApolloServer({
     Mutation,
   },
   context: createContext,
+  formatError(error: GraphQLError) {
+    if (error.originalError instanceof GraphQLError) return error;
+
+    const errorId = randomUUID();
+    console.error({
+      error: {
+        id: errorId,
+        name: error.name,
+        message: error.message,
+        path: error.path,
+        stack: error.stack,
+      },
+    });
+
+    return new GraphQLError(`Internal Error: ${errorId}`);
+  },
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground({
       settings: {

@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import Router from "next/router";
 import { useEffect } from "react";
 import { LoginMutation } from "../apollo/mutations";
@@ -7,11 +7,14 @@ import { EToasts } from "../enums/toasts";
 import useAuth from "./useAuth";
 import useToast from "./useToast";
 
-const useLogin = () => {
+const useLogin = (onError?: (error: ApolloError) => any) => {
   const { showToast } = useToast();
   const { signIn } = useAuth();
   const [login, { data, error }] = useMutation<LoginData, LoginVars>(
-    LoginMutation
+    LoginMutation,
+    {
+      onError,
+    }
   );
 
   useEffect(() => {

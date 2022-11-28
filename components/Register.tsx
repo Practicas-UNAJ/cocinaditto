@@ -7,6 +7,7 @@ import useForm from "../hooks/useForm";
 import useModal from "../hooks/useModal";
 import useOutsideClick from "../hooks/useOutsideClick";
 import useRegister from "../hooks/useRegister";
+import { registerSchema } from "../modules/zod/schemas/Authentication";
 import { CocinadittoInput } from "./Cocinaditto/Input";
 interface IRegisterForm {
   email: string;
@@ -17,8 +18,10 @@ interface IRegisterForm {
 
 export const Register: NextComponentType = () => {
   const { unsetModal, setModal } = useModal();
-  const { form, onChange, submit } = useForm<IRegisterForm>({});
-  const { register } = useRegister();
+  const { form, onChange, submit, errors, onError } = useForm<IRegisterForm>({
+    schema: registerSchema,
+  });
+  const { register } = useRegister(onError);
   const { currentUser } = useAuth();
 
   const ref = useOutsideClick(unsetModal) as MutableRefObject<HTMLFormElement>;
@@ -51,24 +54,28 @@ export const Register: NextComponentType = () => {
         type="text"
         name="username"
         onChange={onChange}
+        error={errors?.username}
       />
       <CocinadittoInput
         label="Email:"
         type="email"
         name="email"
         onChange={onChange}
+        error={errors?.email}
       />
       <CocinadittoInput
         label="Contraseña:"
         type="password"
         name="password"
         onChange={onChange}
+        error={errors?.password}
       />
       <CocinadittoInput
         label="Confirmar contraseña:"
         type="password"
         name="confirmPassword"
         onChange={onChange}
+        error={errors?.confirmPassword}
       />
       <button className="text-primary-600 font-semibold bg-primary-900 py-2 px-5 rounded-full w-fit shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
         Registrarse

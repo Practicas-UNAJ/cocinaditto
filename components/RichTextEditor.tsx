@@ -13,9 +13,7 @@ const Editor = dynamic<EditorProps>(
 interface IRichTextEditorProps {
   cb: (content: string) => void;
   initialContent?: string;
-  error?: {
-    message?: string;
-  };
+  error?: string;
 }
 
 const RichTextEditor = ({
@@ -50,13 +48,13 @@ const RichTextEditor = ({
         }}
         onEditorStateChange={onEditorStateChange}
         wrapperClassName={`${
-          error?.message ? "border-2 border-danger-500 rounded-lg" : ""
+          error ? "border-2 border-danger-900 rounded-lg" : ""
         }`}
       />
-      {error?.message && (
-        <div className="text-xs font-light text-danger-500">
-          {error.message}
-        </div>
+      {error && (
+        <p className="relative -mt-[1rem] left-1/2 -translate-x-1/2 text-center text-danger-900 text-sm w-full">
+          {error}
+        </p>
       )}
     </>
   );

@@ -11,9 +11,7 @@ interface IInputData
     HTMLInputElement
   > {
   label?: string;
-  error?: {
-    message?: string;
-  };
+  error?: string;
 }
 
 export const CocinadittoInput: FunctionComponent<IInputData> = ({
@@ -23,15 +21,23 @@ export const CocinadittoInput: FunctionComponent<IInputData> = ({
   ...props
 }) => {
   return (
-    <label className="flex flex-col items-center text-white">
-      {label}
-      <input
-        {...props}
-        className={twMerge(
-          "text-black rounded-full py-1 px-3 shadow-[inset_0px_4px_4px_rgba(0,0,0,0.25)]",
-          className
-        )}
-      />
-    </label>
+    <div className="flex flex-col">
+      <label className="flex flex-row items-center text-white">
+        {label}
+        <input
+          {...props}
+          className={twMerge(
+            "text-black rounded-full py-1 px-3 shadow-[inset_0px_4px_4px_rgba(0,0,0,0.25)]",
+            className,
+            error && "border-2 border-danger-900"
+          )}
+        />
+      </label>
+      {error && (
+        <p className="relative left-1/2 -translate-x-1/2 text-center text-danger-900 text-sm w-full">
+          {error}
+        </p>
+      )}
+    </div>
   );
 };

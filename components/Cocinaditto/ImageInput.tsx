@@ -8,12 +8,14 @@ import {
   useRef,
   useState,
 } from "react";
+import { twMerge } from "tailwind-merge";
 import { blobToDataUrl } from "../../utils/blobToDataUrl";
 import { RecipeImage } from "../recipes/RecipeImage";
 import { UserImage } from "../UserImage";
 
 type ImageInputProps = {
-  type: string
+  type: string;
+  error?: string;
 };
 type ImageInputHandle = {
   imageDataURL: string | null;
@@ -21,28 +23,24 @@ type ImageInputHandle = {
 
 enum Images {
   USER = "USER",
-  RECIPE = "RECIPE"
+  RECIPE = "RECIPE",
 }
 
 type Types = {
   [key in Images as string]: ReactNode;
-}
+};
 
 const ImageInput: React.ForwardRefRenderFunction<
   ImageInputHandle,
   ImageInputProps
-> = (_, ref) => {
+> = ({ type, error }, ref) => {
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
   const [imageDataURL, setImageDataURL] = useState<string>("");
   const [imageURI, setImageURI] = useState<string>("");
   const imageTypes: Types = {
-    [Images.RECIPE]: (
-      <RecipeImage image={imageDataURL} />
-    ),
-    [Images.USER]: (
-      <UserImage image={imageDataURL} />
-    ),
-  }
+    [Images.RECIPE]: <RecipeImage image={imageDataURL} />,
+    [Images.USER]: <UserImage image={imageDataURL} />,
+  };
 
   useImperativeHandle(ref, () => ({
     imageDataURL,
@@ -71,18 +69,30 @@ const ImageInput: React.ForwardRefRenderFunction<
   }, []);
 
   return (
-    <div className="relative group object-cover w-full">
-      {imageTypes[_.type]}
-      <div className="absolute top-0 left-0 grid items-center justify-center w-full h-full">
-        <input
-          onChange={handleImageChange}
-          ref={inputRef}
-          max={1}
-          type="file"
-          className="absolute w-full h-full opacity-0"
-        />
+    <>
+      <div
+        className={twMerge(
+          "relative group object-cover w-full",
+          error && "border-2 border-danger-900 rounded-md"
+        )}
+      >
+        {imageTypes[type]}
+        <div className="absolute top-0 left-0 grid items-center justify-center w-full h-full">
+          <input
+            onChange={handleImageChange}
+            ref={inputRef}
+            max={1}
+            type="file"
+            className="absolute w-full h-full opacity-0"
+          />
+        </div>
       </div>
-    </div>
+      {error && (
+        <p className="relative -mt-[1rem] left-1/2 -translate-x-1/2 text-center text-danger-900 text-sm w-full">
+          {error}
+        </p>
+      )}
+    </>
   );
 };
 

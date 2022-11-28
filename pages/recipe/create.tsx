@@ -14,6 +14,7 @@ import useAuth from "../../hooks/useAuth";
 import Router from "next/router";
 import useForm from "../../hooks/useForm";
 import useCreateRecipe from "../../hooks/useCreateRecipe";
+import { recipeSchema } from "../../modules/zod/schemas/Recipe";
 
 type ImageInputHandle = ElementRef<typeof ImageInput>;
 
@@ -31,12 +32,14 @@ interface ICreateRecipeForm {
 const Page: NextPageWithLayout = () => {
   const [ready, setReady] = useState(false);
   const imageRef = useRef<ImageInputHandle>(null);
-  const { form, submit, updateForm, onChange } = useForm<ICreateRecipeForm>({
-    initialValue: {
-      glutenFree: false,
-      isVegan: false,
-    },
-  });
+  const { form, submit, updateForm, onChange, errors } =
+    useForm<ICreateRecipeForm>({
+      initialValue: {
+        glutenFree: false,
+        isVegan: false,
+      },
+      schema: recipeSchema,
+    });
   const { currentUser } = useAuth();
   const { createRecipe } = useCreateRecipe(form);
 
@@ -76,6 +79,7 @@ const Page: NextPageWithLayout = () => {
           className="w-full bg-brown-500 placeholder:text-brown-700"
           type="text"
           name="title"
+          error={errors?.title}
           placeholder="Nombre"
           onChange={onChange}
         />
@@ -87,6 +91,7 @@ const Page: NextPageWithLayout = () => {
               type="number"
               placeholder="Tiempo"
               name="cooking_time"
+              error={errors?.cooking_time as string}
               min={1}
               onChange={onChange}
             />
@@ -99,6 +104,7 @@ const Page: NextPageWithLayout = () => {
               placeholder="País o región"
               onChange={onChange}
               name="country"
+              error={errors?.country}
             />
           </div>
           <div className="w-1/3 flex flex-row gap-3 items-center">
@@ -110,6 +116,7 @@ const Page: NextPageWithLayout = () => {
               min={1}
               onChange={onChange}
               name="portions"
+              error={errors?.portions as string}
             />
           </div>
         </div>
@@ -131,6 +138,7 @@ const Page: NextPageWithLayout = () => {
 
         <RichTextEditor
           cb={(content: string) => updateForm({ ...form, content })}
+          error={errors?.content}
         />
 
         <button className="rounded-full bg-secondary-500 text-brown-900 font-semibold w-fit p-3 place-self-center shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">

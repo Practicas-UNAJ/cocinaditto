@@ -36,7 +36,7 @@ const RegisterMutationHandler = async (
       data: {
         username: credentials.username,
         id: firebaseCredentials.user.uid,
-        thumbnail: result.downloadUrl,
+        thumbnail: result.downloadUrl ?? undefined,
       },
     });
 

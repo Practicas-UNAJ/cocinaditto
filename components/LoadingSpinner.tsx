@@ -18,7 +18,12 @@ export default function LoadingSpinner({ type }: LoadingSpinnerProps) {
     case SpinnerType.SMALL:
       return (
         <div className="h-full w-full flex items-center justify-center">
-          <Image src={loadingSmall} objectFit="fill" height={150} width={150} />
+          <Image
+            src={loadingSmall}
+            objectFit="cover"
+            height={150}
+            width={150}
+          />
         </div>
       );
     case SpinnerType.LARGE:

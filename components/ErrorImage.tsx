@@ -15,7 +15,7 @@ export default function ErrorImage({ type }: ErrorImageProps) {
     case ErrorImageType.SMALL:
       return (
         <div className="h-full w-full flex items-center justify-center">
-          <Image src={error} objectFit="fill" height={150} width={150} />
+          <Image src={error} objectFit="cover" height={150} width={150} />
         </div>
       );
     case ErrorImageType.LARGE:

@@ -2,6 +2,7 @@ export interface User {
   id: string;
   username: string;
   thumbnail: string;
+  country?: string;
   createdOn: Date;
   recipeCount: number;
 }

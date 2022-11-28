@@ -6,38 +6,44 @@ import firebaseApp from "../../../../libs/firebaseApp";
 import ApolloContext from "../../types/context";
 import generateImage from "../../../../utils/generateImage";
 import uploadImage from "../../../firebase/uploadImage";
+import { formatServerError } from "../../../../utils/formatServerError";
+import { GraphQLError } from "graphql";
 
 const RegisterMutationHandler = async (
   _parent: any,
   { credentials }: RegisterMutationInput,
   ctx: ApolloContext
 ): Promise<string> => {
-  const firebaseCredentials = await createUserWithEmailAndPassword(
-    firebaseApp.auth,
-    credentials.email,
-    credentials.password
-  );
+  try {
+    const firebaseCredentials = await createUserWithEmailAndPassword(
+      firebaseApp.auth,
+      credentials.email,
+      credentials.password
+    );
 
-  const token = await firebaseAdmin.auth.createCustomToken(
-    firebaseCredentials.user.uid
-  );
+    const token = await firebaseAdmin.auth.createCustomToken(
+      firebaseCredentials.user.uid
+    );
 
-  const image = generateImage(firebaseCredentials.user.uid);
-  const uuid = v4();
-  const result = await uploadImage(
-    image,
-    `users/${firebaseCredentials.user.uid}/${uuid}.png`
-  );
+    const image = generateImage(firebaseCredentials.user.uid);
+    const uuid = v4();
+    const result = await uploadImage(
+      image,
+      `users/${firebaseCredentials.user.uid}/${uuid}.png`
+    );
 
-  await ctx.prisma.user.create({
-    data: {
-      username: credentials.username,
-      id: firebaseCredentials.user.uid,
-      thumbnail: result.downloadUrl,
-    },
-  });
+    await ctx.prisma.user.create({
+      data: {
+        username: credentials.username,
+        id: firebaseCredentials.user.uid,
+        thumbnail: result.downloadUrl,
+      },
+    });
 
-  return token;
+    return token;
+  } catch (err) {
+    throw new GraphQLError(JSON.stringify(formatServerError(err as Error)));
+  }
 };
 
 export default RegisterMutationHandler;

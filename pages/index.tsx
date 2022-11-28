@@ -6,7 +6,6 @@ import { FeaturedRecipes } from "../components/recipes/FeaturedRecipes";
 import { RandomRecipe } from "../components/RandomRecipe";
 import { LastRecipes } from "../components/recipes/LastRecipes";
 import { NewRecipe } from "../components/NewRecipe";
-import ExhibitDisclaimer from "../components/ExhibitDisclaimer";
 import Head from "next/head";
 
 const Page: NextPageWithLayout = () => {
@@ -20,7 +19,6 @@ const Page: NextPageWithLayout = () => {
       <RandomRecipe />
       <LastRecipes />
       <NewRecipe />
-      <ExhibitDisclaimer />
     </>
   );
 };

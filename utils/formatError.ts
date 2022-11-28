@@ -1,16 +1,33 @@
-import Joi from "joi";
+import { ZodError, ZodIssue } from "zod";
+import CocinadittoError from "../interfaces/CocinadittoError";
 
-const formatError = (error: Error) => {
-  if (error instanceof Joi.ValidationError) {
-    const errors = error.details.map((err) => {
-      return {
-        message: err.message,
-        field: err.context!.key,
+export const formatError = (_error: Error): CocinadittoError[] => {
+  let formattedError: CocinadittoError[] = [];
+  let error: Error | CocinadittoError[] = _error;
+
+  console.log(error);
+
+  if (!(error instanceof ZodError))
+    error = JSON.parse(error.message) as CocinadittoError[];
+
+  if (Array.isArray(error) && error instanceof Array<CocinadittoError>) {
+    error.forEach((err) => {
+      formattedError = {
+        ...formattedError,
+        [err.field]: err.message,
       };
     });
-
-    return errors;
   }
-};
+  if (error instanceof ZodError) {
+    error.errors.forEach((err: ZodIssue) => {
+      let error: CocinadittoError | CocinadittoError[] = new CocinadittoError(
+        err.path[0] as string,
+        err.message
+      );
 
-export default formatError;
+      formattedError = formattedError.concat(error);
+    });
+  }
+
+  return formattedError;
+};

@@ -1,18 +1,16 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { MainLayout } from "../../components/layouts/MainLayout";
-import { UserImage } from "../../components/UserImage";
 import { NextPageWithLayout } from "../_app";
-import { Icon } from "@iconify/react";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../../apollo/enum";
 import ErrorImage, { ErrorImageType } from "../../components/ErrorImage";
 import LoadingSpinner, { SpinnerType } from "../../components/LoadingSpinner";
 import { useRouter } from "next/router";
 import useProfile from "../../hooks/useProfile";
 import useRecipes from "../../hooks/useRecipes";
-import { RecipeCard } from "../../components/recipes/RecipeCard";
 import { RecipeList } from "../../components/recipes/RecipeList";
 import { UserInfo } from "../../components/Cocinaditto/UserInfo";
-import { EInfoView } from "../../enums/InfoView";
+import SortModifier from "../../components/SortModifier";
+import { ISortModifier, SortContext } from "../../interfaces/context";
 
 const Page: NextPageWithLayout = () => {
   const router = useRouter();
@@ -24,10 +22,19 @@ const Page: NextPageWithLayout = () => {
   const {
     recipes,
     fetchMore,
+    clear,
     hasMore,
     loading: recipesLoading,
     error: recipesError,
   } = useRecipes();
+  const [sortModifier, setSortModifier] = useState<ISortModifier>({
+    sortBy: RecipeQuerySortBy.CREATED_ON,
+    sortOrder: RecipeQuerySortOrder.DESC,
+  });
+
+  useEffect(() => {
+    clear();
+  }, [sortModifier]);
 
   const fetchMoreRecipes = () => {
     fetchMore({
@@ -36,8 +43,8 @@ const Page: NextPageWithLayout = () => {
           author: router.query.id as string,
         },
         sort: {
-          by: RecipeQuerySortBy.CREATED_ON,
-          order: RecipeQuerySortOrder.DESC,
+          by: sortModifier.sortBy,
+          order: sortModifier.sortOrder,
         },
       },
     });
@@ -48,16 +55,20 @@ const Page: NextPageWithLayout = () => {
 
   return user ? (
     <>
-      <UserInfo view={EInfoView.USER} username={user.username} thumbnail={user.thumbnail} recipes={recipes.length} />
-      {recipes && (
-        <RecipeList
-          list={recipes}
-          fetchMore={fetchMoreRecipes}
-          hasMore={hasMore}
-          loading={recipesLoading}
-        />
-      )}
-      {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
+      <UserInfo user={user} />
+      <p className="text-2xl font-semibold">Recetas</p>
+      <SortContext.Provider value={[sortModifier, setSortModifier]}>
+        <SortModifier />
+        {recipes && (
+          <RecipeList
+            list={recipes}
+            fetchMore={fetchMoreRecipes}
+            hasMore={hasMore}
+            loading={recipesLoading}
+          />
+        )}
+        {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
+      </SortContext.Provider>
     </>
   ) : (
     <></>

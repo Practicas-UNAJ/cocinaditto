@@ -2,6 +2,8 @@ import { EModals } from "../enums/modals";
 import { UserCredential } from "firebase/auth";
 import { IUser } from "./user";
 import { EToasts } from "../enums/toasts";
+import { createContext, Dispatch, SetStateAction } from "react";
+import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../apollo/enum";
 
 export interface IModalContext {
   modal: EModals | null;
@@ -20,3 +22,12 @@ export interface IAuthContext {
 export interface IToastContext {
   showToast: (toast: EToasts, message: string) => void;
 }
+
+export interface ISortModifier {
+  sortBy: RecipeQuerySortBy;
+  sortOrder: RecipeQuerySortOrder;
+}
+
+export const SortContext = createContext<
+  [ISortModifier, Dispatch<SetStateAction<ISortModifier>>] | null
+>(null);

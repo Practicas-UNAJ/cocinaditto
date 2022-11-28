@@ -17,15 +17,12 @@ import { RecipeList } from "../../components/recipes/RecipeList";
 import { NextPageWithLayout } from "../_app";
 import SortModifier from "../../components/SortModifier";
 import useRecipes from "../../hooks/useRecipes";
+import { SortContext } from "../../interfaces/context";
 
 interface ISortModifier {
   sortBy: RecipeQuerySortBy;
   sortOrder: RecipeQuerySortOrder;
 }
-
-export const SortContext = createContext<
-  [ISortModifier, Dispatch<SetStateAction<ISortModifier>>] | null
->(null);
 
 const Page: NextPageWithLayout = () => {
   const {

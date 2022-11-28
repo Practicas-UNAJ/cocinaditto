@@ -9,7 +9,7 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../apollo/enum";
-import { SortContext } from "../pages/recipe/featured";
+import { SortContext } from "../interfaces/context";
 
 interface ISortModifier {
   sortBy: RecipeQuerySortBy;
@@ -32,7 +32,7 @@ const sortByOptions: Options = {
 };
 
 const SortModifier = () => {
-  const [sortModifier, setSortModifier] = useContext(SortContext) as [
+  const [_, setSortModifier] = useContext(SortContext) as [
     ISortModifier,
     Dispatch<SetStateAction<ISortModifier>>
   ];

@@ -39,6 +39,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   likedByUser,
 }) => {
   const [liked, setLiked] = useState<boolean>(likedByUser);
+  const [saved, setSaved] = useState<boolean>(true);
 
   return (
     <Link href={`/recipe/${id}`}>
@@ -55,10 +56,26 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
             />
           )}
         </div>
-        <img
-          src={thumbnail}
-          className="w-full rounded-t-xl object-cover aspect-[4/3]"
-        />
+        <div className="relative w-full aspect-[4/3]">
+          <Image
+            src={thumbnail}
+            className="rounded-t-xl object-cover"
+            layout="fill"
+            objectFit="cover"
+          />
+          <button
+            onClick={() => setSaved(!saved)}
+            className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2"
+          >
+            <Icon
+              icon={
+                saved ?
+                "icon-park-solid:tag" :
+                "icon-park-outline:tag"
+              }
+            />
+          </button>
+        </div>
         <div className="text-ellipsis whitespace-nowrap inline-block max-w-full">
           {title}
         </div>

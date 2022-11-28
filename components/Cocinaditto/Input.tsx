@@ -22,7 +22,7 @@ export const CocinadittoInput: FunctionComponent<IInputData> = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <label className="flex flex-row items-center text-white">
+      <label className="flex flex-col items-center text-white">
         {label}
         <input
           {...props}

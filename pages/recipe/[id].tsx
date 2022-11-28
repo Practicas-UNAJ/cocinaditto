@@ -47,6 +47,24 @@ const Page: NextPageWithLayout = () => {
       {
         infoState === EInfoView.EDIT ?
         <form className="flex flex-col gap-5">
+          <CocinadittoTitle text="Editar receta" />
+          <div className="flex flex-row gap-3 justify-center">
+            <button className="rounded-full w-12 h-12 p-3 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-danger-600">
+              <Icon
+                icon="bi:trash"
+                className="w-full h-full font-bold"
+              />
+            </button>
+            <button
+              onClick={() => setInfoState(EInfoView.OWNER)}
+              className="rounded-full w-12 h-12 p-3 shadow-[0px_4px_4px_rgba(0,0,0,0.25)]  bg-secondary-500"
+            >
+              <Icon
+                icon="material-symbols:save-as-outline-rounded"
+                className="w-full h-full font-bold"
+              />
+            </button>
+          </div>
           <ImageInput ref={imageRef} type="RECIPE" />
           <CocinadittoInput
             className="w-full bg-brown-500 placeholder:text-brown-700"
@@ -104,12 +122,6 @@ const Page: NextPageWithLayout = () => {
           <RichTextEditor
             cb={(content: string) => console.log("a")}
           />
-
-          <button
-            onClick={() => setInfoState(EInfoView.OWNER)}
-            className="rounded-full bg-secondary-500 text-brown-900 font-semibold w-fit p-3 place-self-center shadow-[0px_4px_4px_rgba(0,0,0,0.25)] capitalize">
-            guardar
-          </button>
         </form>
       :
       <>
@@ -117,6 +129,26 @@ const Page: NextPageWithLayout = () => {
         <CocinadittoTitle text={recipe.title} />
 
         <span className="text-center font-extralight">Publicado por: {recipe.author.username}</span>
+
+        {infoState === EInfoView.OWNER && (
+          <div className="flex flex-row gap-3 justify-center">
+            <button className="rounded-full w-12 h-12 p-3 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-danger-600">
+              <Icon
+                icon="bi:trash"
+                className="w-full h-full font-bold"
+              />
+            </button>
+            <button
+              onClick={() => setInfoState(EInfoView.EDIT)}
+              className="rounded-full w-12 h-12 p-3 shadow-[0px_4px_4px_rgba(0,0,0,0.25)]  bg-secondary-500"
+            >
+              <Icon
+                icon="bxs:pencil"
+                className="w-full h-full font-bold"
+              />
+            </button>
+          </div>
+        )}
 
         <div className="flex flex-row gap-5 justify-center">
           {recipe.glutenFree && (
@@ -131,20 +163,6 @@ const Page: NextPageWithLayout = () => {
           <button onClick={() => likeRecipe()}>{likeIcon}</button>
           {recipe.likes}
         </div>
-
-        {recipe.isOwner && (
-          <div className="flex flex-row gap-3 justify-center">
-            <button className="rounded-full font-semibold p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-danger-600 text-white">
-              Eliminar
-            </button>
-            <button
-              onClick={() => setInfoState(EInfoView.EDIT)}
-              className="rounded-full font-semibold p-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-secondary-500 text-brown-900"
-            >
-              Editar
-            </button>
-          </div>
-        )}
       </>
     }
     </>

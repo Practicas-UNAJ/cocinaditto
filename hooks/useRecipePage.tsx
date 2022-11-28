@@ -7,6 +7,7 @@ const useRecipePage = (id: string) => {
     variables: {
       id,
     },
+    fetchPolicy: "no-cache",
   });
 
   return {

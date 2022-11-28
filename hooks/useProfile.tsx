@@ -11,6 +11,7 @@ const useProfile = (id: string) => {
     variables: {
       id,
     },
+    fetchPolicy: "no-cache",
   });
 
   useEffect(() => {

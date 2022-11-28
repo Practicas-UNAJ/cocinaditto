@@ -6,6 +6,8 @@ export const UserQuery = gql`
       id
       username
       thumbnail
+      country
+      recipeCount
     }
   }
 `;

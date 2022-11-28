@@ -27,7 +27,7 @@ const CreateRecipe: MutationHandlerFunc<Recipe, CreateResult> = async (
       id: recipe.id,
     },
     data: {
-      thumbnail: result.downloadUrl,
+      thumbnail: result.downloadUrl ?? undefined,
     },
   });
 

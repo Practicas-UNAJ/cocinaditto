@@ -7,6 +7,7 @@ import {
 } from "firebase/storage";
 
 const uploadImage = async (data: Buffer | string, path: string) => {
+  const typeRegex = /(?<=data:)(.*?\/\w+)/g;
   const storageRef = ref(app.storage, path);
   let uploadResult = null;
 
@@ -15,8 +16,10 @@ const uploadImage = async (data: Buffer | string, path: string) => {
       contentType: "image/png",
     });
   else if (typeof data === "string") {
+    const contentType = data.match(typeRegex);
+    if (!contentType) return { uploadResult: null, downloadUrl: null };
     uploadResult = await uploadString(storageRef, data, "data_url", {
-      contentType: "image/png",
+      contentType: contentType[0],
     });
   }
 

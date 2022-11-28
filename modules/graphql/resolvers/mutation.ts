@@ -1,3 +1,4 @@
+import EditUserMutationHandler from "../handlers/mutation/EditUserMutationHandler";
 import { LikeMutationHandler } from "../handlers/mutation/LikeMutationHandler";
 import LoginMutationHandler from "../handlers/mutation/LoginMutationHandler";
 import RecipeMutationHandler from "../handlers/mutation/RecipeMutationHandler";
@@ -8,6 +9,7 @@ const mutationResolver = {
   login: LoginMutationHandler,
   recipe: RecipeMutationHandler,
   like: LikeMutationHandler,
+  editUser: EditUserMutationHandler,
 };
 
 export default mutationResolver;

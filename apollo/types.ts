@@ -95,3 +95,14 @@ export interface RecipeMutationVars {
     Omit<Recipe, "author" | "id" | "createdOn" | "likes" | "likedByUser">
   >;
 }
+
+export interface EditUserVars {
+  payload: {
+    username?: string;
+    country?: string;
+    thumbnail?: string;
+  };
+}
+export interface EditUserData {
+  editUser: boolean;
+}

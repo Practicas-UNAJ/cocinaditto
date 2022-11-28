@@ -21,12 +21,14 @@ const schema = gql`
       payload: RecipeMutationInput!
     ): RecipeMutationResult
     like(id: String!): Boolean
+    editUser(payload: EditUserInput!): Boolean
   }
 
   type User {
     id: String
     username: String
     thumbnail: String
+    country: String
     createdOn: DateTime
     recipeCount: Int
   }
@@ -106,6 +108,12 @@ const schema = gql`
     cooking_time: Int
     isVegan: Boolean
     glutenFree: Boolean
+  }
+
+  input EditUserInput {
+    username: String
+    thumbnail: String
+    country: String
   }
 
   type CreateResult {

@@ -35,3 +35,9 @@ export const RecipeMutation = gql`
     }
   }
 `;
+
+export const EditUserMutation = gql`
+  mutation EditUsser($payload: EditUserInput!) {
+    editUser(payload: $payload)
+  }
+`;

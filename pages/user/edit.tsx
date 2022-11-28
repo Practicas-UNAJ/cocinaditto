@@ -81,7 +81,7 @@ const Page: NextPageWithLayout = () => {
               loading={recipesLoading}
             />
           )}
-          {recipesError && (<><ErrorImage type={ErrorImageType.SMALL} /> {console.log(recipesError)}</>)}
+          {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
       </SortContext.Provider>
     </>
   )

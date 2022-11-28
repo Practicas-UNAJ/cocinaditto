@@ -38,8 +38,8 @@ const ImageInput: React.ForwardRefRenderFunction<
   const [imageDataURL, setImageDataURL] = useState<string>("");
   const [imageURI, setImageURI] = useState<string>("");
   const imageTypes: Types = {
-    [Images.RECIPE]: <RecipeImage image={imageDataURL} />,
-    [Images.USER]: <UserImage image={imageDataURL} />,
+    [Images.RECIPE]: <RecipeImage image={imageURI} />,
+    [Images.USER]: <UserImage image={imageURI} />,
   };
 
   useImperativeHandle(ref, () => ({

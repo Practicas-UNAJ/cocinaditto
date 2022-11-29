@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { Icon } from "@iconify/react";
 import insignia1 from "../../assets/images/insignia1.png";
 import insignia2 from "../../assets/images/insignia2.png";
@@ -7,6 +7,7 @@ import insignia3 from "../../assets/images/insignia3.png";
 import GlutenFree from "../../assets/images/gluten-free.png";
 import { Recipe } from "../../modules/graphql/types/interfaces";
 import Link from "next/link";
+import useSaveRecipe from "../../hooks/useSaveRecipe";
 
 export enum HIGHLIGHTED {
   NONE = "NONE",
@@ -39,7 +40,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   likedByUser,
   savedByUser,
 }) => {
-  const [saved, setSaved] = useState<boolean>(savedByUser);
+  const { icon, save } = useSaveRecipe(id, savedByUser);
 
   return (
     <Link href={`/recipe/${id}`}>
@@ -66,13 +67,11 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setSaved(!saved);
+              save();
             }}
             className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 z-20"
           >
-            <Icon
-              icon={saved ? "icon-park-solid:tag" : "icon-park-outline:tag"}
-            />
+            {icon}
           </button>
         </div>
         <div className="text-ellipsis whitespace-nowrap inline-block max-w-full">

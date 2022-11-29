@@ -1,17 +1,30 @@
 import { Icon } from "@iconify/react";
 import { NextComponentType } from "next";
-import { useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import { FlagCheckbutton } from "./Cocinaditto/FlagCheckbutton";
 import { CocinadittoInput } from "./Cocinaditto/Input";
-import glutenFreeIcon from "../assets/images/gluten-free.png"
-import veganIcon from "../assets/images/vegan.png"
+import glutenFreeIcon from "../assets/images/gluten-free.png";
+import veganIcon from "../assets/images/vegan.png";
+import { FilterContext, IFilters } from "../interfaces/context";
 
 export const Filter: NextComponentType = () => {
-  const [ showDropdown, setShowDropdown ] = useState<boolean>(false)
-  const [ vegan, setVegan ] = useState<boolean>(false)
-  const [ glutenFree, setGlutenFree ] = useState<boolean>(false)
-  const toggleList = () => setShowDropdown(!showDropdown)
+  const [filters, setFilters] = useContext(FilterContext) as [
+    IFilters,
+    Dispatch<SetStateAction<IFilters>>
+  ];
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+  const toggleList = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <div
       className={twMerge(
@@ -25,14 +38,17 @@ export const Filter: NextComponentType = () => {
       {showDropdown && (
         <div
           className={twMerge(
-            "absolute z-20 overflow-auto w-40 flex flex-col items-center gap-2 p-1 bg-brown-400 rounded-b-lg shadow-xl",
+            "absolute z-20 overflow-auto w-40 flex flex-col items-center gap-2 p-1  pb-8 bg-brown-400 rounded-b-lg shadow-xl",
             showDropdown && "bg-brown-500"
           )}
         >
           <CocinadittoInput
             type="text"
-            placeholder="Nombre"
             className="w-full"
+            placeholder={filters.title ?? "Titulo"}
+            onChange={(ev) =>
+              setFilters({ ...filters, title: ev.target.value ?? undefined })
+            }
           />
           <div className="flex flex-row items-center gap-1">
             <Icon icon="bxs:time-five" />
@@ -46,38 +62,48 @@ export const Filter: NextComponentType = () => {
             <Icon icon="fa6-solid:pizza-slice" />
             <CocinadittoInput
               type="number"
-              placeholder="Porciones"
+              placeholder={`${filters.portions ?? "Porciones"}`}
               className="w-32"
+              onChange={(ev) =>
+                setFilters({
+                  ...filters,
+                  portions: parseInt(ev.target.value) ?? undefined,
+                })
+              }
             />
           </div>
           <div className="flex flex-row items-center gap-1">
             <Icon icon="mdi:user" />
             <CocinadittoInput
               type="text"
-              placeholder="Autor"
+              placeholder={filters.author ?? "Autor"}
               className="w-32"
+              onChange={(ev) =>
+                setFilters({ ...filters, author: ev.target.value ?? undefined })
+              }
             />
           </div>
           <div className="flex flex-row gap-5 justify-center">
-          <FlagCheckbutton
-            image={glutenFreeIcon}
-            state={glutenFree}
-            setState={() => setGlutenFree(!glutenFree)}
-          />
-          <FlagCheckbutton
-            image={veganIcon}
-            state={vegan}
-            setState={() => setVegan(!vegan)}
-          />
-        </div>
-          <button
-            onClick={toggleList}
-            className="py-1 px-3 bg-secondary-500 rounded-full"
-          >
-            Aplicar
+            <FlagCheckbutton
+              image={glutenFreeIcon}
+              state={filters.isGlutenFree ?? false}
+              setState={() =>
+                setFilters({ ...filters, isGlutenFree: !filters.isGlutenFree })
+              }
+            />
+            <FlagCheckbutton
+              image={veganIcon}
+              state={filters.isVegan ?? false}
+              setState={() =>
+                setFilters({ ...filters, isVegan: !filters.isVegan })
+              }
+            />
+          </div>
+          <button className="text-sm mt-2" onClick={() => setFilters({})}>
+            Limpiar Filtros
           </button>
         </div>
       )}
     </div>
-  )
-}
+  );
+};

@@ -17,7 +17,7 @@ import { RecipeList } from "../../components/recipes/RecipeList";
 import { NextPageWithLayout } from "../_app";
 import SortModifier from "../../components/SortModifier";
 import useRecipes from "../../hooks/useRecipes";
-import { SortContext } from "../../interfaces/context";
+import { FilterContext, IFilters, SortContext } from "../../interfaces/context";
 import { Filter } from "../../components/Filter";
 
 interface ISortModifier {
@@ -38,14 +38,21 @@ const Page: NextPageWithLayout = () => {
     sortBy: RecipeQuerySortBy.LIKES,
     sortOrder: RecipeQuerySortOrder.DESC,
   });
+  const [filters, setFilters] = useState<IFilters>({});
 
   useEffect(() => {
     clear();
-  }, [sortModifier]);
+  }, [sortModifier, filters]);
 
   const fetchMoreRecipes = () => {
     fetchMore({
       query: {
+        values: {
+          title: filters.title ?? undefined,
+          portions: filters.portions ?? undefined,
+          isVegan: filters.isVegan ?? undefined,
+          isGlutenFree: filters.isGlutenFree ?? undefined,
+        },
         sort: {
           by: sortModifier.sortBy as RecipeQuerySortBy,
           order: sortModifier.sortOrder as RecipeQuerySortOrder,
@@ -61,19 +68,21 @@ const Page: NextPageWithLayout = () => {
       </Head>
       <CocinadittoTitle text="Recetas destacadas" />
       <SortContext.Provider value={[sortModifier, setSortModifier]}>
-        <div className="flex flex-row justify-between">
-          <Filter/>
-          <SortModifier />
-        </div>
-        {recipes && (
-          <RecipeList
-            list={recipes}
-            fetchMore={fetchMoreRecipes}
-            hasMore={hasMore}
-            loading={recipesLoading}
-          />
-        )}
-        {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
+        <FilterContext.Provider value={[filters, setFilters]}>
+          <div className="flex flex-row justify-between">
+            <Filter />
+            <SortModifier />
+          </div>
+          {recipes && (
+            <RecipeList
+              list={recipes}
+              fetchMore={fetchMoreRecipes}
+              hasMore={hasMore}
+              loading={recipesLoading}
+            />
+          )}
+          {recipesError && <ErrorImage type={ErrorImageType.SMALL} />}
+        </FilterContext.Provider>
       </SortContext.Provider>
     </>
   );

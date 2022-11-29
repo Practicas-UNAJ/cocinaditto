@@ -1,26 +1,19 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient {
+    background: linear-gradient(154.43deg, #F7ECE1 6.5%, #D0AF9C 79.32%, #AE806B 112.69%);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.nav-gradient {
+    background: radial-gradient(167.97% 7514.65% at 48.82% 99.22%, #B092D9 0%, #B092D9 0.01%, #8365B6 51.56%, #5A4092 100%)
 }
 
-* {
-  box-sizing: border-box;
+.secondary-button-gradient {
+    background: radial-gradient(72.92% 4125.87% at 54.38% 43.75%, #79CED9 0%, #58A7BA 71.88%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.text-shadow {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

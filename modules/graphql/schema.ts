@@ -48,6 +48,7 @@ const schema = gql`
     likes: Int
     likedByUser: Boolean
     isOwner: Boolean
+    savedByUser: Boolean
   }
 
   type RecipesQueryResult {

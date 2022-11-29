@@ -9,7 +9,7 @@ import { ModalsProps } from "../components/Modal";
 export interface IModalContext {
   modal: EModals | null;
   unsetModal: () => void;
-  setModal: (ev: any, modal: EModals, props: ModalsProps) => void;
+  setModal: (ev: any, modal: EModals, props?: ModalsProps) => void;
 }
 
 export interface IAuthContext {

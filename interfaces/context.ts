@@ -29,6 +29,19 @@ export interface ISortModifier {
   sortOrder: RecipeQuerySortOrder;
 }
 
+export interface IFilters {
+  title?: string;
+  cooking_time?: string;
+  portions?: number;
+  author?: string;
+  isVegan?: boolean;
+  isGlutenFree?: boolean;
+}
+
 export const SortContext = createContext<
   [ISortModifier, Dispatch<SetStateAction<ISortModifier>>] | null
+>(null);
+
+export const FilterContext = createContext<
+  [IFilters, Dispatch<SetStateAction<IFilters>>] | null
 >(null);

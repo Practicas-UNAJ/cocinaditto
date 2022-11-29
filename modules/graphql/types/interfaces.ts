@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface Recipe {
-  id: number;
+  id: string;
   author: User;
   title: string;
   thumbnail: string;
@@ -22,4 +22,5 @@ export interface Recipe {
   likes: number;
   likedByUser: boolean;
   isOwner: boolean;
+  savedByUser: boolean;
 }

@@ -29,6 +29,11 @@ export const Filter: NextComponentType = () => {
             showDropdown && "bg-brown-500"
           )}
         >
+          <CocinadittoInput
+            type="text"
+            placeholder="Nombre"
+            className="w-full"
+          />
           <div className="flex flex-row items-center gap-1">
             <Icon icon="bxs:time-five" />
             <CocinadittoInput

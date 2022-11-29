@@ -37,9 +37,9 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   likes,
   author,
   likedByUser,
+  savedByUser,
 }) => {
-  const [liked, setLiked] = useState<boolean>(likedByUser);
-  const [saved, setSaved] = useState<boolean>(true);
+  const [saved, setSaved] = useState<boolean>(savedByUser);
 
   return (
     <Link href={`/recipe/${id}`}>
@@ -64,15 +64,14 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
             objectFit="cover"
           />
           <button
-            onClick={() => setSaved(!saved)}
-            className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSaved(!saved);
+            }}
+            className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 z-20"
           >
             <Icon
-              icon={
-                saved ?
-                "icon-park-solid:tag" :
-                "icon-park-outline:tag"
-              }
+              icon={saved ? "icon-park-solid:tag" : "icon-park-outline:tag"}
             />
           </button>
         </div>
@@ -99,7 +98,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
         </div>
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-1 items-center">
-            {liked ? (
+            {likedByUser ? (
               <Icon icon="icon-park-solid:like" />
             ) : (
               <Icon icon="icon-park-outline:like" />

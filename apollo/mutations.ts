@@ -37,7 +37,13 @@ export const RecipeMutation = gql`
 `;
 
 export const EditUserMutation = gql`
-  mutation EditUsser($payload: EditUserInput!) {
+  mutation EditUser($payload: EditUserInput!) {
     editUser(payload: $payload)
+  }
+`;
+
+export const SaveRecipeMutation = gql`
+  mutation SaveRecipe($id: String!) {
+    save(id: $id)
   }
 `;

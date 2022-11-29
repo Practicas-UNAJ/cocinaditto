@@ -106,3 +106,11 @@ export interface EditUserVars {
 export interface EditUserData {
   editUser: boolean;
 }
+
+export interface SaveData {
+  save: boolean;
+}
+
+export interface SaveVars {
+  id: string;
+}

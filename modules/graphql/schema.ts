@@ -21,6 +21,7 @@ const schema = gql`
       payload: RecipeMutationInput!
     ): RecipeMutationResult
     like(id: String!): Boolean
+    save(id: String!): Boolean
     editUser(payload: EditUserInput!): Boolean
   }
 

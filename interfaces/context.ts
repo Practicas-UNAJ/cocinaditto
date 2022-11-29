@@ -4,11 +4,12 @@ import { IUser } from "./user";
 import { EToasts } from "../enums/toasts";
 import { createContext, Dispatch, SetStateAction } from "react";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../apollo/enum";
+import { ModalsProps } from "../components/Modal";
 
 export interface IModalContext {
   modal: EModals | null;
   unsetModal: () => void;
-  setModal: (ev: any, modal: EModals) => void;
+  setModal: (ev: any, modal: EModals, props: ModalsProps) => void;
 }
 
 export interface IAuthContext {

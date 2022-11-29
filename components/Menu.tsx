@@ -33,7 +33,7 @@ export const Menu: FunctionComponent<IMenuProps> = (props) => {
       <button className="absolute top-5 left-7" onClick={props.setState}>
         <Icon icon="ep:close-bold" />
       </button>
-      {!currentUser ? (
+      {currentUser ? (
         <>
           <div className="flex flex-col gap-3 h-full">
             <button

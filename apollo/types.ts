@@ -92,7 +92,7 @@ export interface RecipeMutationData {
 export interface RecipeMutationVars {
   type: RecipeMutationType;
   payload: Partial<
-    Omit<Recipe, "author" | "id" | "createdOn" | "likes" | "likedByUser">
+    Omit<Recipe, "author" | "createdOn" | "likes" | "likedByUser">
   >;
 }
 

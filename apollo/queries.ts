@@ -1,5 +1,27 @@
 import { gql } from "@apollo/client";
 
+const RecipeFragment = `
+id
+author {
+  id
+  username
+  createdOn
+}
+title
+thumbnail
+country
+content
+portions
+cooking_time
+isVegan
+glutenFree
+createdOn
+likes
+likedByUser
+isOwner
+savedByUser
+`;
+
 export const UserQuery = gql`
   query User($id: String) {
     user(id: $id) {
@@ -15,23 +37,7 @@ export const UserQuery = gql`
 export const TrendingRecipesQuery = gql`
   query Trending($time: TrendingTime!, $pagination: Pagination!) {
     trending(time: $time, pagination: $pagination) {
-      id
-      author {
-        username
-        createdOn
-      }
-      title
-      thumbnail
-      country
-      content
-      portions
-      cooking_time
-      isVegan
-      glutenFree
-      createdOn
-      likes
-      likedByUser
-      isOwner
+      ${RecipeFragment}
     }
   }
 `;
@@ -41,23 +47,7 @@ export const RecipesQuery = gql`
     results: recipes(query: $query) {
       hasMore
       recipes {
-        id
-        author {
-          username
-          createdOn
-        }
-        title
-        thumbnail
-        country
-        content
-        portions
-        cooking_time
-        isVegan
-        glutenFree
-        createdOn
-        likes
-        likedByUser
-        isOwner
+        ${RecipeFragment}
       }
     }
   }
@@ -66,23 +56,7 @@ export const RecipesQuery = gql`
 export const RecipeQuery = gql`
   query Recipe($id: String!) {
     recipe(id: $id) {
-      id
-      author {
-        username
-        createdOn
-      }
-      title
-      thumbnail
-      country
-      content
-      portions
-      cooking_time
-      isVegan
-      glutenFree
-      createdOn
-      likes
-      likedByUser
-      isOwner
+      ${RecipeFragment}
     }
   }
 `;
@@ -90,23 +64,7 @@ export const RecipeQuery = gql`
 export const RandomQuery = gql`
   query Random {
     recipe: random {
-      id
-      author {
-        username
-        createdOn
-      }
-      title
-      thumbnail
-      country
-      content
-      portions
-      cooking_time
-      isVegan
-      glutenFree
-      createdOn
-      likes
-      likedByUser
-      isOwner
+      ${RecipeFragment}
     }
   }
 `;

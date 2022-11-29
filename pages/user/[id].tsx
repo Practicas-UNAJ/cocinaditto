@@ -11,6 +11,7 @@ import { RecipeList } from "../../components/recipes/RecipeList";
 import { UserInfo } from "../../components/Cocinaditto/UserInfo";
 import SortModifier from "../../components/SortModifier";
 import { ISortModifier, SortContext } from "../../interfaces/context";
+import { Filter } from "../../components/Filter";
 
 const Page: NextPageWithLayout = () => {
   const router = useRouter();
@@ -58,7 +59,10 @@ const Page: NextPageWithLayout = () => {
       <UserInfo user={user} />
       <p className="text-2xl font-semibold">Recetas</p>
       <SortContext.Provider value={[sortModifier, setSortModifier]}>
-        <SortModifier />
+        <div className="flex flex-row justify-between">
+          <Filter/>
+          <SortModifier />
+        </div>
         {recipes && (
           <RecipeList
             list={recipes}

@@ -18,6 +18,7 @@ import { NextPageWithLayout } from "../_app";
 import SortModifier from "../../components/SortModifier";
 import useRecipes from "../../hooks/useRecipes";
 import { SortContext } from "../../interfaces/context";
+import { Filter } from "../../components/Filter";
 
 interface ISortModifier {
   sortBy: RecipeQuerySortBy;
@@ -60,7 +61,10 @@ const Page: NextPageWithLayout = () => {
       </Head>
       <CocinadittoTitle text="Recetas destacadas" />
       <SortContext.Provider value={[sortModifier, setSortModifier]}>
-        <SortModifier />
+        <div className="flex flex-row justify-between">
+          <Filter/>
+          <SortModifier />
+        </div>
         {recipes && (
           <RecipeList
             list={recipes}

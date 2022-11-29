@@ -43,6 +43,24 @@ const Field = {
 
       return Boolean(like);
     },
+    savedByUser: async (
+      _parent: Recipe,
+      _: any,
+      ctx: ApolloContext
+    ): Promise<Boolean> => {
+      if (!ctx.user) return false;
+
+      const saved = await ctx.prisma.savedRecipe.findUnique({
+        where: {
+          userId_recipeId: {
+            recipeId: _parent.id,
+            userId: ctx.user.id,
+          },
+        },
+      });
+
+      return Boolean(saved);
+    },
     isOwner: async (
       _parent: Recipe,
       _: any,

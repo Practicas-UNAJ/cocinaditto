@@ -5,8 +5,6 @@ export const formatError = (_error: Error): CocinadittoError[] => {
   let formattedError: CocinadittoError[] = [];
   let error: Error | CocinadittoError[] = _error;
 
-  console.log(error);
-
   if (!(error instanceof ZodError))
     error = JSON.parse(error.message) as CocinadittoError[];
 

@@ -16,6 +16,7 @@ import { UserImage } from "../UserImage";
 type ImageInputProps = {
   type: string;
   error?: string;
+  initialValue?: string;
 };
 type ImageInputHandle = {
   imageDataURL: string | null;
@@ -33,17 +34,14 @@ type Types = {
 const ImageInput: React.ForwardRefRenderFunction<
   ImageInputHandle,
   ImageInputProps
-> = ({ type, error }, ref) => {
+> = ({ type, error, initialValue }, ref) => {
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
-  const [imageDataURL, setImageDataURL] = useState<string>("");
+  const [imageDataURL, setImageDataURL] = useState<string>();
   const [imageURI, setImageURI] = useState<string>("");
-  const imageTypes: Types = {
-    [Images.RECIPE]: <RecipeImage image={imageURI} />,
-    [Images.USER]: <UserImage image={imageURI} />,
-  };
+  const [imageTypes, setImageTypes] = useState<Types>();
 
   useImperativeHandle(ref, () => ({
-    imageDataURL,
+    imageDataURL: imageDataURL as string,
   }));
 
   const handleImageChange: ChangeEventHandler<HTMLInputElement> = async (
@@ -59,12 +57,20 @@ const ImageInput: React.ForwardRefRenderFunction<
   };
 
   const revokeImage = () => {
-    URL.revokeObjectURL(imageURI);
+    URL.revokeObjectURL(imageURI as string);
     setImageDataURL("");
     setImageURI("");
   };
 
   useEffect(() => {
+    setImageTypes({
+      [Images.RECIPE]: <RecipeImage image={imageURI} />,
+      [Images.USER]: <UserImage image={imageURI} />,
+    });
+  }, [imageURI]);
+
+  useEffect(() => {
+    setImageURI(initialValue ?? "");
     return () => revokeImage();
   }, []);
 
@@ -76,7 +82,7 @@ const ImageInput: React.ForwardRefRenderFunction<
           error && "border-2 border-danger-900 rounded-md"
         )}
       >
-        {imageTypes[type]}
+        {imageTypes && imageTypes[type]}
         <div className="absolute top-0 left-0 grid items-center justify-center w-full h-full">
           <input
             onChange={handleImageChange}

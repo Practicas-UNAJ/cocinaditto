@@ -50,7 +50,12 @@ export const UserInfo: FunctionComponent<IDatoData> = ({ user }) => {
   return (
     <form className="flex flex-col sm:flex-row justify-around">
       {infoState === EInfoView.EDIT ? (
-        <ImageInput ref={imageRef} type="USER" error={errors?.thumbnail} />
+        <ImageInput
+          initialValue={user.thumbnail}
+          ref={imageRef}
+          type="USER"
+          error={errors?.thumbnail}
+        />
       ) : (
         <UserImage image={user.thumbnail} />
       )}

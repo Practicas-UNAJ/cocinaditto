@@ -7,8 +7,13 @@ import { Filter } from "../../components/Filter";
 import { MainLayout } from "../../components/layouts/MainLayout";
 import { RecipeList } from "../../components/recipes/RecipeList";
 import SortModifier from "../../components/SortModifier";
-import useRecipes from "../../hooks/useRecipes";
-import { FilterContext, IFilters, ISortModifier, SortContext } from "../../interfaces/context";
+import useSavedRecipes from "../../hooks/useSavedRecipes";
+import {
+  FilterContext,
+  IFilters,
+  ISortModifier,
+  SortContext,
+} from "../../interfaces/context";
 import { NextPageWithLayout } from "../_app";
 
 const Page: NextPageWithLayout = () => {
@@ -19,7 +24,7 @@ const Page: NextPageWithLayout = () => {
     hasMore,
     loading: recipesLoading,
     error: recipesError,
-  } = useRecipes();
+  } = useSavedRecipes();
   const [sortModifier, setSortModifier] = useState<ISortModifier>({
     sortBy: RecipeQuerySortBy.LIKES,
     sortOrder: RecipeQuerySortOrder.DESC,
@@ -50,9 +55,9 @@ const Page: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Cocinaditto | Recetas destacadas</title>
+        <title>Cocinaditto | Recetas guardadas</title>
       </Head>
-      <CocinadittoTitle text="Recetas destacadas" />
+      <CocinadittoTitle text="Recetas guardadas" />
       <SortContext.Provider value={[sortModifier, setSortModifier]}>
         <FilterContext.Provider value={[filters, setFilters]}>
           <div className="flex flex-row justify-between">

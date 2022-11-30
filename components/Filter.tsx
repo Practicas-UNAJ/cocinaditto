@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { NextComponentType } from "next";
 import {
   Dispatch,
+  MutableRefObject,
   SetStateAction,
   useContext,
   useEffect,
@@ -13,6 +14,7 @@ import { CocinadittoInput } from "./Cocinaditto/Input";
 import glutenFreeIcon from "../assets/images/gluten-free.png";
 import veganIcon from "../assets/images/vegan.png";
 import { FilterContext, IFilters } from "../interfaces/context";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 export const Filter: NextComponentType = () => {
   const [filters, setFilters] = useContext(FilterContext) as [
@@ -21,12 +23,17 @@ export const Filter: NextComponentType = () => {
   ];
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
+  const ref = useOutsideClick(() =>
+    setShowDropdown(false)
+  ) as MutableRefObject<HTMLDivElement>;
+
   const toggleList = () => {
     setShowDropdown(!showDropdown);
   };
 
   return (
     <div
+      ref={ref}
       className={twMerge(
         "relative bg-brown-400 w-40 pt-1",
         showDropdown ? "bg-brown-500 shadow-xl rounded-t-lg" : "rounded-lg"

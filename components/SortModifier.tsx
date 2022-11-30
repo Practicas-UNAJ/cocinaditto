@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import {
   Dispatch,
+  MutableRefObject,
   ReactNode,
   SetStateAction,
   useContext,
@@ -9,6 +10,7 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 import { RecipeQuerySortBy, RecipeQuerySortOrder } from "../apollo/enum";
+import useOutsideClick from "../hooks/useOutsideClick";
 import { SortContext } from "../interfaces/context";
 
 interface ISortModifier {
@@ -42,6 +44,10 @@ const SortModifier = () => {
     sortOrder: RecipeQuerySortOrder.DESC,
   });
 
+  const ref = useOutsideClick(() =>
+    setShowDropdown(false)
+  ) as MutableRefObject<HTMLDivElement>;
+
   const toggleList = () => setShowDropdown(!showDropdown);
 
   const handleSelect = (sortBy: RecipeQuerySortBy) => {
@@ -62,7 +68,7 @@ const SortModifier = () => {
   }, [selected]);
 
   return (
-    <div className="flex flex-row gap-2 font-medium">
+    <div ref={ref} className="flex flex-row gap-2 font-medium">
       <div
         className={twMerge(
           "relative bg-brown-400 w-16 pt-1 rounded-lg",
@@ -82,7 +88,10 @@ const SortModifier = () => {
             {Object.keys(sortByOptions).map((key, idx) => {
               return (
                 <button
-                  onClick={() => handleSelect(key as RecipeQuerySortBy)}
+                  onClick={() => {
+                    if (key === selected.sortBy) return;
+                    handleSelect(key as RecipeQuerySortBy);
+                  }}
                   key={idx}
                 >
                   {sortByOptions[key]}

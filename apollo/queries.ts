@@ -53,6 +53,17 @@ export const RecipesQuery = gql`
   }
 `;
 
+export const SavedRecipesQuery = gql`
+  query Recipes($query: RecipesQueryInput!) {
+    results: saved(query: $query) {
+      hasMore
+      recipes {
+        ${RecipeFragment}
+      }
+    }
+  }
+`;
+
 export const RecipeQuery = gql`
   query Recipe($id: String!) {
     recipe(id: $id) {

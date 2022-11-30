@@ -8,6 +8,7 @@ const schema = gql`
   type Query {
     user(id: String): User
     recipes(query: RecipesQueryInput!): RecipesQueryResult
+    saved(query: RecipesQueryInput!): RecipesQueryResult
     recipe(id: String!): Recipe
     trending(time: TrendingTime!, pagination: Pagination): [Recipe]
     random: Recipe

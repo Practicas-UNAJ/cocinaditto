@@ -70,6 +70,23 @@ export interface RecipesData {
   };
 }
 
+export interface SavedRecipesVars {
+  query: {
+    values?: RecipeQueryFields;
+    sort?: {
+      by: RecipeQuerySortBy;
+      order: RecipeQuerySortOrder;
+    };
+    pagination?: Pagination;
+  };
+}
+export interface SavedRecipesData {
+  results: {
+    hasMore: boolean;
+    recipes: Recipe[];
+  };
+}
+
 export interface RecipesVars {
   query: {
     values?: RecipeQueryFields;

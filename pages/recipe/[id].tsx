@@ -23,6 +23,8 @@ import { EModals } from "../../enums/modals";
 import useForm from "../../hooks/useForm";
 import { editRecipeSchema } from "../../modules/zod/schemas/Recipe";
 import useEditRecipe from "../../hooks/useEditRecipe";
+import Link from "next/link";
+import useAuth from "../../hooks/useAuth";
 
 type ImageInputHandle = ElementRef<typeof ImageInput>;
 
@@ -42,6 +44,7 @@ const Page: NextPageWithLayout = () => {
   const router = useRouter();
   const imageRef = useRef<ImageInputHandle>(null);
   const { recipe, isLoading } = useRecipePage(router.query.id as string);
+  const { currentUser } = useAuth();
   const { deleteRecipe } = useDeleteRecipe(router.query.id as string);
   const [infoState, setInfoState] = useState<EInfoView>();
   const [ready, setReady] = useState(false);
@@ -207,9 +210,11 @@ const Page: NextPageWithLayout = () => {
           <RecipeImage image={recipe.thumbnail} />
           <CocinadittoTitle text={recipe.title} />
 
-          <span className="text-center font-extralight">
-            Publicado por: {recipe.author.username}
-          </span>
+          <Link href={`/user/${recipe.author.id}`}>
+            <span className="text-center font-extralight">
+              Publicado por: {recipe.author.username}
+            </span>
+          </Link>
 
           {infoState === EInfoView.OWNER && (
             <div className="flex flex-row gap-3 justify-center">
@@ -240,7 +245,14 @@ const Page: NextPageWithLayout = () => {
           <RecipeContent content={recipe.content} />
 
           <div className="flex flex-row text-brown-900 justify-center items-center gap-2">
-            <button onClick={() => likeRecipe()}>{likeIcon}</button>
+            <button
+              onClick={(ev) => {
+                if (currentUser) likeRecipe();
+                else setModal(ev, EModals.LOGIN);
+              }}
+            >
+              {likeIcon}
+            </button>
             {recipe.likes}
           </div>
         </>

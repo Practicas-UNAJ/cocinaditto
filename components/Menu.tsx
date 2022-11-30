@@ -5,6 +5,8 @@ import { twMerge } from "tailwind-merge";
 import { EModals } from "../enums/modals";
 import useAuth from "../hooks/useAuth";
 import useModal from "../hooks/useModal";
+import useRandomRecipe from "../hooks/useRandom";
+import { useWindowSize } from "../hooks/useWindowsSize";
 import { UserDisplay } from "./UserDisplay";
 
 interface IMenuProps {
@@ -15,15 +17,20 @@ interface IMenuProps {
 export const Menu: FunctionComponent<IMenuProps> = (props) => {
   const { setModal } = useModal();
   const { currentUser } = useAuth();
+  const { height, ..._ } = useWindowSize();
+  const { getRandom } = useRandomRecipe();
 
   const redirectTo = (endpoint: string) => Router.push(endpoint);
 
   return (
     <div
       className={twMerge(
-        "fixed duration-300 z-20 right-0 flex flex-col gap-3 h-screen p-12 text-brown-900 font-semibold gradient drop-shadow-2xl",
+        "fixed duration-300 z-30 right-0 flex flex-col gap-3 h-screen p-12 text-brown-900 font-semibold gradient drop-shadow-2xl",
         !props.state && "translate-x-full"
       )}
+      style={{
+        height: `${height}px`,
+      }}
     >
       <button className="absolute top-5 left-7" onClick={props.setState}>
         <Icon icon="ep:close-bold" />
@@ -37,9 +44,21 @@ export const Menu: FunctionComponent<IMenuProps> = (props) => {
             >
               Publicar una receta
             </button>
-            <button className="text-shadow">Publicaciones destacadas</button>
-            <button className="text-shadow">Receta aleatoria</button>
-            <button className="text-shadow">Seguidos</button>
+            <button
+              onClick={() => redirectTo("/recipe/featured")}
+              className="text-shadow"
+            >
+              Recetas destacadas
+            </button>
+            <button
+              onClick={() => redirectTo("/recipe/saved")}
+              className="text-shadow"
+            >
+              Recetas guardadas
+            </button>
+            <button onClick={() => getRandom()} className="text-shadow">
+              Receta aleatoria
+            </button>
           </div>
           <UserDisplay />
         </>
@@ -63,8 +82,15 @@ export const Menu: FunctionComponent<IMenuProps> = (props) => {
           >
             Registrarse
           </button>
-          <button className="text-shadow">Publicaciones destacadas</button>
-          <button className="text-shadow">Receta aleatoria</button>
+          <button
+            onClick={() => redirectTo("/recipe/featured")}
+            className="text-shadow"
+          >
+            Recetas destacadas
+          </button>
+          <button onClick={() => getRandom()} className="text-shadow">
+            Receta aleatoria
+          </button>
           <button className="text-shadow">Buscar recetas</button>
         </>
       )}

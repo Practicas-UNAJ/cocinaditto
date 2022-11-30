@@ -8,6 +8,9 @@ import GlutenFree from "../../assets/images/gluten-free.png";
 import { Recipe } from "../../modules/graphql/types/interfaces";
 import Link from "next/link";
 import useSaveRecipe from "../../hooks/useSaveRecipe";
+import useAuth from "../../hooks/useAuth";
+import useModal from "../../hooks/useModal";
+import { EModals } from "../../enums/modals";
 
 export enum HIGHLIGHTED {
   NONE = "NONE",
@@ -41,6 +44,8 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
   savedByUser,
 }) => {
   const { icon, save } = useSaveRecipe(id, savedByUser);
+  const { currentUser } = useAuth();
+  const { setModal } = useModal();
 
   return (
     <Link href={`/recipe/${id}`}>
@@ -65,11 +70,13 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
             objectFit="cover"
           />
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              save();
+            onClick={(ev) => {
+              if (currentUser) {
+                ev.stopPropagation();
+                save();
+              } else setModal(ev, EModals.LOGIN);
             }}
-            className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 z-20"
+            className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2"
           >
             {icon}
           </button>

@@ -19,7 +19,12 @@ export const UserDisplay: NextComponentType = () => {
           />
         </div>
         <span>{currentUser?.username}</span>
-        <button onClick={signOut}>
+        <button
+          onClick={(ev) => {
+            signOut();
+            ev.stopPropagation();
+          }}
+        >
           <Icon icon="ci:log-out" className="w-7 h-7" />
         </button>
       </div>

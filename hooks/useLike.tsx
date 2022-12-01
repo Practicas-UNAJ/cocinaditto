@@ -3,25 +3,38 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { LikeMutation } from "../apollo/mutations";
 import { LikeData, LikeVars } from "../apollo/types";
+import { Recipe } from "../modules/graphql/types/interfaces";
 
-const useLike = (id: string, state: boolean) => {
-  const [liked, setLiked] = useState(state);
+const useLike = (recipe: Recipe) => {
+  const [liked, setLiked] = useState(recipe?.likedByUser);
+  const [count, setCount] = useState(recipe?.likes);
   const [likeRecipe, { data, error }] = useMutation<LikeData, LikeVars>(
     LikeMutation,
     {
       variables: {
-        id,
+        id: recipe?.id,
       },
     }
   );
 
   useEffect(() => {
-    if (data?.like) setLiked(data.like);
+    if (recipe) {
+      setLiked(recipe.likedByUser);
+      setCount(recipe.likes);
+    }
+  }, [recipe]);
+
+  useEffect(() => {
+    if (data?.like) {
+      setLiked(data.like.state);
+      setCount(data.like.count);
+    }
   }, [data]);
 
   return {
     likeRecipe,
     error,
+    count,
     icon: liked ? (
       <Icon icon="icon-park-solid:like" />
     ) : (

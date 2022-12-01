@@ -80,6 +80,7 @@ const schema = gql`
     country: String
     portions: Int
     isGlutenFree: Boolean
+    cooking_time: Int
     isVegan: Boolean
     author: String
     createdOn: DateRange

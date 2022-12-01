@@ -63,6 +63,12 @@ export const Filter: NextComponentType = () => {
               type="number"
               placeholder="Tiempo"
               className="w-32"
+              onChange={(ev) =>
+                setFilters({
+                  ...filters,
+                  cooking_time: parseInt(ev.target.value) ?? undefined,
+                })
+              }
             />
           </div>
           <div className="flex flex-row items-center gap-1">
@@ -76,17 +82,6 @@ export const Filter: NextComponentType = () => {
                   ...filters,
                   portions: parseInt(ev.target.value) ?? undefined,
                 })
-              }
-            />
-          </div>
-          <div className="flex flex-row items-center gap-1">
-            <Icon icon="mdi:user" />
-            <CocinadittoInput
-              type="text"
-              placeholder={filters.author ?? "Autor"}
-              className="w-32"
-              onChange={(ev) =>
-                setFilters({ ...filters, author: ev.target.value ?? undefined })
               }
             />
           </div>

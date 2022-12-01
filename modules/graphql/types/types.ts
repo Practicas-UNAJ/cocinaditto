@@ -15,6 +15,7 @@ export type RecipeQueryFields = {
   country?: string;
   portions?: number;
   isGlutenFree?: boolean;
+  cooking_time?: number;
   isVegan?: boolean;
   author?: string;
   createdOn?: DateRange;

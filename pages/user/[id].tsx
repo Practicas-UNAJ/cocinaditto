@@ -50,6 +50,7 @@ const Page: NextPageWithLayout = () => {
           author: router.query.id as string,
           title: filters.title ?? undefined,
           portions: filters.portions ?? undefined,
+          cooking_time: filters.cooking_time ?? undefined,
           isVegan: filters.isVegan ?? undefined,
           isGlutenFree: filters.isGlutenFree ?? undefined,
         },

@@ -21,8 +21,17 @@ const RecipesQueryHandler = async (
         isVegan: {
           equals: query.values.isVegan ?? undefined,
         },
+        cooking_time: {
+          gte: query.values.cooking_time
+            ? query.values.cooking_time - 15
+            : undefined,
+          lte: query.values.cooking_time
+            ? query.values.cooking_time + 15
+            : undefined,
+        },
         portions: {
-          equals: query.values.portions ?? undefined,
+          gte: query.values.portions ? query.values.portions - 2 : undefined,
+          lte: query.values.portions ? query.values.portions + 2 : undefined,
         },
         createdOn: {
           gte: query.values.createdOn?.after ?? undefined,

@@ -56,7 +56,10 @@ export interface RegisterVars {
 }
 
 export interface LikeData {
-  like: boolean;
+  like: {
+    state: boolean;
+    count: number;
+  };
 }
 
 export interface LikeVars {

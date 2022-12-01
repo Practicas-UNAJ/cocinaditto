@@ -21,7 +21,7 @@ const schema = gql`
       type: RecipeMutationType!
       payload: RecipeMutationInput!
     ): RecipeMutationResult
-    like(id: String!): Boolean
+    like(id: String!): LikeResult
     save(id: String!): Boolean
     editUser(payload: EditUserInput!): Boolean
   }
@@ -80,6 +80,7 @@ const schema = gql`
     country: String
     portions: Int
     isGlutenFree: Boolean
+    cooking_time: Int
     isVegan: Boolean
     author: String
     createdOn: DateRange
@@ -129,6 +130,11 @@ const schema = gql`
 
   type DeleteResult {
     deleted: Boolean
+  }
+
+  type LikeResult {
+    state: Boolean
+    count: Int
   }
 
   enum RecipeMutationType {

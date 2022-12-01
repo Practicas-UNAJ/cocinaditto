@@ -25,6 +25,7 @@ import { editRecipeSchema } from "../../modules/zod/schemas/Recipe";
 import useEditRecipe from "../../hooks/useEditRecipe";
 import Link from "next/link";
 import useAuth from "../../hooks/useAuth";
+import { Recipe } from "../../modules/graphql/types/interfaces";
 
 type ImageInputHandle = ElementRef<typeof ImageInput>;
 
@@ -54,10 +55,7 @@ const Page: NextPageWithLayout = () => {
     { payload: form },
     router.query.id as string
   );
-  const { icon: likeIcon, likeRecipe } = useLike(
-    router.query.id as string,
-    recipe?.likedByUser!
-  );
+  const { icon: likeIcon, likeRecipe, count } = useLike(recipe as Recipe);
 
   useEffect(() => {
     if (recipe) {
@@ -253,7 +251,7 @@ const Page: NextPageWithLayout = () => {
             >
               {likeIcon}
             </button>
-            {recipe.likes}
+            {count}
           </div>
         </>
       )}

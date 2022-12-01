@@ -31,9 +31,8 @@ export interface ISortModifier {
 
 export interface IFilters {
   title?: string;
-  cooking_time?: string;
+  cooking_time?: number;
   portions?: number;
-  author?: string;
   isVegan?: boolean;
   isGlutenFree?: boolean;
 }

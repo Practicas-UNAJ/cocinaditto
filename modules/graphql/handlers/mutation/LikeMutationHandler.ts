@@ -15,6 +15,12 @@ export const LikeMutationHandler = async (
     },
   });
 
+  const count = await ctx.prisma.like.count({
+    where: {
+      recipeId: id,
+    },
+  });
+
   if (liked) {
     await ctx.prisma.like.delete({
       where: {
@@ -25,7 +31,7 @@ export const LikeMutationHandler = async (
       },
     });
 
-    return false;
+    return { state: false, count: count - 1 };
   }
 
   await ctx.prisma.like.create({
@@ -35,5 +41,5 @@ export const LikeMutationHandler = async (
     },
   });
 
-  return true;
+  return { state: true, count: count + 1 };
 };

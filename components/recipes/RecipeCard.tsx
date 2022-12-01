@@ -81,7 +81,7 @@ export const RecipeCard: FunctionComponent<RecipeCardData> = ({
             {icon}
           </button>
         </div>
-        <div className="text-ellipsis whitespace-nowrap inline-block max-w-full">
+        <div className="text-ellipsis whitespace-nowrap inline-block max-w-full overflow-hidden">
           {title}
         </div>
         <div className="flex flex-row justify-between items-center">
